@@ -1,14 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:top_events/LoginScrren/ControllerLogin.dart';
 import 'package:top_events/RegisterScreen/RegisterScreen.dart';
 
 
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+   LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,10 +128,14 @@ class LoginScreen extends StatelessWidget {
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.deepPurple),
-                                        onPressed: () {
-                                          controller.login();
-                                          if (controller.state == true) {
-                                            // Get.to(() => ());
+                                        onPressed: () async {
+                                        await  controller.login();
+                                          if (kDebugMode) {
+                                            print("***controller.state.value==${controller.state.value} *******");
+                                          }
+                                          if (controller.state.value == true) {
+                                            Get.offNamed('/home');
+                                            controller.saveUserIdInGetStorage();
                                           }
                                         },
                                         child: Text(
