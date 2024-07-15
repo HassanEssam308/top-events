@@ -3,15 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constants.dart';
+
 class Controllerlogin extends GetxController{
   final _auth=FirebaseAuth.instance;
   TextEditingController Email = TextEditingController();
   TextEditingController pass = TextEditingController();
-  bool state =false;
+  Rx<bool> state =Rx(false);
   var isscure=true.obs;
 
 
-  login() async {
+ Future<void> login() async {
     if (Email.text.isEmpty || pass.text.isEmpty) {
       print("please enter data");
     } else {
@@ -21,7 +23,8 @@ class Controllerlogin extends GetxController{
           email: Email.text,
           password: pass.text,
         );
-        state=true;
+        state.value=true;
+        refresh();
       } catch (e) {
         if (e is FirebaseAuthException) {
           switch (e.code) {
@@ -57,6 +60,14 @@ class Controllerlogin extends GetxController{
      refresh();
 
 
+  }
+
+  void saveUserIdInGetStorage() {
+    print('saveUserIdInGetStorage box.read************ =${box.read('uid')}');
+
+    if(_auth.currentUser!=null){
+      box.write('uid',_auth.currentUser?.uid);
+    }
   }
 
 
