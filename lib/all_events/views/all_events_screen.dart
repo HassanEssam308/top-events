@@ -121,7 +121,7 @@ class AllEventsScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0,  bottom: 17),
                         child: drawerCustomText(
-                         'Price : ${eventModel.ticketPrice}\$',
+                         'Price : ${eventModel.ticketPrice.toString()}\$',
                             fontSize: 16.0,
                         ),
                       ),

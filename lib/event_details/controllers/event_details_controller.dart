@@ -24,8 +24,10 @@ class EventDetailsController extends GetxController {
   }
 
   goToMap(LatLng latLng) async {
+    print("${latLng.latitude},${latLng.longitude}");
     String mapUrl =
         "https://www.google.com/maps/search/?api=1&query=${latLng.latitude},${latLng.longitude}";
+
     final Uri parseUrl = Uri.parse(mapUrl);
     if (!await launchUrl(parseUrl)) {
       throw Exception('**********Could not launch $mapUrl');

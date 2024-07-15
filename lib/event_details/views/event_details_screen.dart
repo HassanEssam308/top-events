@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:top_events/add_event/models/event_model.dart';
 import 'package:top_events/event_details/controllers/event_details_controller.dart';
 
+import '../../tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
+
 class EventDetailsScreen extends StatelessWidget {
   final String eventId;
 
@@ -164,29 +166,31 @@ class EventDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget drawerGetTicketButton(BuildContext context) {
-    return Container(
-      color: Colors.transparent,
-      margin:
-      const EdgeInsetsDirectional.symmetric(horizontal: 40, vertical: 20),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width / 2,
-      child: MaterialButton(
-        elevation: 5,
-        color: Colors.purpleAccent[100],
-        onPressed: () {},
-        child: const Padding(
-          padding: EdgeInsets.all(15.0),
-          child: Text(
-            'Get Ticket',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget drawerGetTicketButton(BuildContext context) {
+  //   return Container(
+  //     color: Colors.transparent,
+  //     margin:
+  //     const EdgeInsetsDirectional.symmetric(horizontal: 40, vertical: 20),
+  //     width: MediaQuery
+  //         .of(context)
+  //         .size
+  //         .width / 2,
+  //     child: MaterialButton(
+  //       elevation: 5,
+  //       color: Colors.purpleAccent[100],
+  //       onPressed: () {
+  //
+  //       },
+  //       child: const Padding(
+  //         padding: EdgeInsets.all(15.0),
+  //         child: Text(
+  //           'Get Ticket',
+  //           textAlign: TextAlign.center,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget drawerFloatingGetTicketButton(BuildContext context) {
     return FloatingActionButton.extended(
@@ -196,7 +200,10 @@ class EventDetailsScreen extends StatelessWidget {
       elevation: 5,
       // shape: ,
       splashColor: Colors.black,
-      onPressed: () {},
+      onPressed: () {
+        Get.toNamed('/createTicket');
+
+      },
       label: SizedBox(
           width: MediaQuery
               .of(context)
