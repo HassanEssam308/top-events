@@ -13,9 +13,14 @@ class Controllerlogin extends GetxController{
   var isscure=true.obs;
 
 
- Future<void> login() async {
+ Future<void> login(BuildContext context) async {
     if (Email.text.isEmpty || pass.text.isEmpty) {
-      print("please enter data");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please enter all the data"),
+          duration: Duration(seconds: 2),
+        ),
+      );
     } else {
       try {
         print(Email.text.toString()+"gggg");

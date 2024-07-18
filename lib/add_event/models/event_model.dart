@@ -45,6 +45,25 @@ class EventModel {
       subscribers: List<String>.from( data["subscribers"]??[]),
     );
   }
+  static Stream<EventModel> fromFireStoreByStream(
+      Stream<DocumentSnapshot<Map<String, dynamic>>> docSnapStream) {
+    return docSnapStream.map((docSnap) {
+      final data = docSnap.data()!;
+      return EventModel(
+        id: docSnap.id,
+        ownerId: data["ownerId"] ?? '',
+        ownerName: data["ownerName"] ?? '',
+        eventTitle: data["eventTitle"] ?? '',
+        description: data["description"] ?? '',
+        ticketPrice: data["ticketPrice"] ?? '',
+        images: data["images"] is Iterable ? List.from(data['images']) : null,
+        status: eventStatusValues.map[data["status"] ?? 'accepted']!,
+        date: data["date"] ?? '',
+        eventLocation: EventLocation.fromMap(data["eventLocation"] ?? {}),
+        subscribers: List<String>.from(data["subscribers"] ?? []),
+      );
+    });
+  }
 
 
   Map<String, dynamic> toFireStoreJson() =>

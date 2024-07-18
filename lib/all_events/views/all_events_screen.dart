@@ -22,24 +22,8 @@ class AllEventsScreen extends StatelessWidget {
       floatingActionButton: drawerFloatingActionButton(),
       body: Column(
         children: [
-          // Container(
-          //   alignment: AlignmentDirectional.centerEnd,
-          //   padding: const EdgeInsets.all(10),
-          //   child: MaterialButton(
-          //     color:  Colors.green,
-          //     elevation: 10,
-          //     onPressed: () {
-          //       Get.toNamed('/addEvent');
-          //     },
-          //     child: const Text("Add Event"),
-          //   ),
-          // ),
-          ElevatedButton(onPressed: (){
-           FirebaseAuth.instance.signOut();
-           box.write('uid',null);
 
-           Get.toNamed('/loginScreen');
-          }, child: const Text('logOut'),),
+
           Expanded(
             child: drawerCardOfEvents(),
           ),
@@ -89,15 +73,15 @@ class AllEventsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 200,
-                        child: Image.network(
-                          eventModel.images == null ? '' : eventModel.images![0],
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,),
-                      ),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   height: 200,
+                      //   child: Image.network(
+                      //     eventModel.images == null ? '' : eventModel.images![0],
+                      //     fit: BoxFit.cover,
+                      //     width: double.infinity,
+                      //     height: double.infinity,),
+                      // ),
 
                       // title
                       Padding(

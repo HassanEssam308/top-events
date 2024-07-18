@@ -26,9 +26,9 @@ final icons=<Widget>[
         bottomNavigationBar: CurvedNavigationBar(
           animationCurve: Curves.ease,
           animationDuration: const Duration(seconds: 2),
-          backgroundColor: Colors.red,
-          color: Colors.purple,
-          buttonBackgroundColor: Colors.green,
+          backgroundColor: Colors.deepPurple,
+          color: Colors.deepPurple,
+          buttonBackgroundColor: Colors.white,
           height: 56,
 
           items:icons,

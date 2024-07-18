@@ -1,115 +1,142 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:get/get.dart';
 import 'package:top_events/tickets_Genrate_QrCode/controller_Genrate_Qrcode.dart';
 import 'package:top_events/tickets_paid/tickets_paid_Screen.dart';
+import '../all_Tickets/tickets_storage.dart';
+
 
 class TicketsGenrateQrcode extends StatelessWidget {
-  const TicketsGenrateQrcode({super.key});
+  String eventid;
+   TicketsGenrateQrcode({super.key,required this.eventid});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            body: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-                    Colors.deepPurple.shade400,
-                    Colors.deepPurple.shade600,
-                  ])),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                SizedBox(
-                  height: 100,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20,),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Get Tickets",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.deepPurple,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GetBuilder<GenrateQrcodeController>(
+                init: GenrateQrcodeController(eventid:eventid),
+                builder: (controller) {
+                  return Column(
                     children: [
-                      Text(
-                        "Welcome Back",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.w700),
+                      SizedBox(height: 20),
+                      CreditCardWidget(
+                        customCardTypeIcons: [
+                          CustomCardTypeIcon(cardType: CardType.otherBrand
+                              , cardImage: Image.asset("image/master.png",
+                              height: 50,
+                              width: 50,))
+                        ],
+                        cardBgColor: Colors.black,
+                        cardNumber: controller.cardNumber,
+                        expiryDate: controller.expiryDate,
+                        cardHolderName: controller.cardHolderName,
+                        cvvCode: controller.cvvCode,
+                        showBackView: controller.isCvvFocused,
+                        obscureCardNumber: true,
+                        obscureCardCvv: true,
+                        onCreditCardWidgetChange: (CreditCardBrand) {},
                       ),
-                      SizedBox(
-                        height: 10,
+
+
+                      CreditCardForm(
+                        cardNumber: controller.cardNumber,
+                        expiryDate: controller.expiryDate,
+                        cardHolderName: controller.cardHolderName,
+                        cvvCode: controller.cvvCode,
+                        onCreditCardModelChange:
+                        controller.onCreditCardModelChange,
+                        formKey: controller.formKey,
                       ),
-                      Text("Login Your Account",
-                          style: TextStyle(
+                      SizedBox(height: 20),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 17),
+                        alignment: Alignment.center,
+                        child: TextField(
+                          controller: controller.name,
+                          decoration: InputDecoration(
+                            labelText: 'Enter your name',
+                            hintText: 'Enter your name',
+
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 17),
+                        alignment: Alignment.center,
+                        child: TextField(
+                          controller: controller.code,
+                          decoration: InputDecoration(
+                            hintText: 'Enter personal ID',
+                            labelText: 'personal Id',
+
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 17),
+                        alignment: Alignment.center,
+                        child: TextField(
+                          controller: controller.phone,
+                          decoration: InputDecoration(
+                            hintText: 'Enter phone',
+                            labelText: 'phone',
+
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          backgroundColor: Colors.deepPurple,
+                        ),
+                        onPressed: () async {
+                          await controller.storeTicketdata(context);
+                          if (controller.formKey.currentState!.validate()) {
+
+                            Get.to(TicketsStorage(),transition:Transition.zoom);
+
+                          } else {
+                            print('Invalid');
+                          }
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Paid',
+                            style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
+                              fontFamily: 'halter',
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
                     ],
-                  ),
-                ),
-
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(60),
-                                topRight: Radius.circular(60))),
-                        child: Padding(
-                            padding: EdgeInsets.only(top: 40, right: 15, left: 15),
-                            child: SingleChildScrollView(
-                              child: Column(children: [
-                                GetBuilder<GenrateQrcodeController>(
-                                  init: GenrateQrcodeController(),
-                                  builder: (controller) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child:Column(children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: TextField(
-                                            controller:controller.name,
-                                            decoration: InputDecoration(
-                                                hintText: 'Enter your name',
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: Colors.blue, width: 2))),
-                                          ),
-                                        ),
-                                        SizedBox(height: 20,),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: TextField(
-                                            controller: controller.code,
-                                            decoration: InputDecoration(
-                                                hintText: 'Enter personal id',
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: Colors.blue, width: 2))),
-                                          ),
-                                        ),
-                                        SizedBox(height: 20,),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: TextField(
-                                            controller: controller.phone,
-                                            decoration: InputDecoration(
-                                                hintText: 'Enter phone',
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: Colors.blue, width: 2))),
-                                          ),
-                                        ),
-
-
-                                        ElevatedButton(
-                                            onPressed: () async {
-                                               await controller.storeTicketdata();
-                                                Get.to(TicketsPaidScreen());
-                                            },
-                                            child: Text("Go To paid")),
-                                        // ElevatedButton(onPressed: _ca
-                                      ],)
-                                    );
-                                  },
-                                )
-                              ]),
-                            ))))
-              ]),
-            )));
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

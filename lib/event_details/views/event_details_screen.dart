@@ -22,7 +22,7 @@ class EventDetailsScreen extends StatelessWidget {
         ),
         floatingActionButton: Align(
             alignment: Alignment.bottomCenter,
-            child: drawerFloatingGetTicketButton(context)),
+            child: drawerFloatingGetTicketButton(context,eventId)),
         body: Column(
           children: [
             Expanded(
@@ -42,27 +42,27 @@ class EventDetailsScreen extends StatelessWidget {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-                          Container(
-                            padding: const EdgeInsetsDirectional.only(top: 20),
-                            height: 220,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: eventModel.images!
-                                  .map(
-                                    (img) =>
-                                    Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Image.network(
-                                        img,
-                                        fit: BoxFit.cover,
-                                        width: 200,
-                                        height: 200,
-                                      ),
-                                    ),
-                              )
-                                  .toList(),
-                            ),
-                          ),
+                          // Container(
+                          //   padding: const EdgeInsetsDirectional.only(top: 20),
+                          //   height: 220,
+                          //   child: ListView(
+                          //     scrollDirection: Axis.horizontal,
+                          //     children: eventModel.images!
+                          //         .map(
+                          //           (img) =>
+                          //           Padding(
+                          //             padding: const EdgeInsets.all(2.0),
+                          //             child: Image.network(
+                          //               img,
+                          //               fit: BoxFit.cover,
+                          //               width: 200,
+                          //               height: 200,
+                          //             ),
+                          //           ),
+                          //     )
+                          //         .toList(),
+                          //   ),
+                          // ),
                           //title
                           Padding(
                             padding: const EdgeInsetsDirectional.only(
@@ -192,7 +192,7 @@ class EventDetailsScreen extends StatelessWidget {
   //   );
   // }
 
-  Widget drawerFloatingGetTicketButton(BuildContext context) {
+  Widget drawerFloatingGetTicketButton(BuildContext context,String eventid) {
     return FloatingActionButton.extended(
       tooltip: "Get Ticket",
       backgroundColor: Colors.purpleAccent[100],
@@ -201,8 +201,8 @@ class EventDetailsScreen extends StatelessWidget {
       // shape: ,
       splashColor: Colors.black,
       onPressed: () {
-        Get.toNamed('/createTicket');
-
+        //Get.toNamed('/createTicket');
+          Get.to(TicketsGenrateQrcode(eventid:eventid,));
       },
       label: SizedBox(
           width: MediaQuery

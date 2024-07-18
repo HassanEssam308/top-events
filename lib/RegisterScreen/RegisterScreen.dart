@@ -28,7 +28,9 @@ class RegisterScreen extends StatelessWidget {
           height: 100,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20,),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -42,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text("Login Your Account",
+              Text("Creat New Account",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -50,7 +52,6 @@ class RegisterScreen extends StatelessWidget {
             ],
           ),
         ),
-
         Expanded(
             child: Container(
                 decoration: BoxDecoration(
@@ -78,8 +79,7 @@ class RegisterScreen extends StatelessWidget {
                                     decoration: InputDecoration(
                                       labelText: 'User Name',
                                       hintText: 'Enter your User Name',
-                                      hintStyle:
-                                      TextStyle(color: Colors.grey),
+                                      hintStyle: TextStyle(color: Colors.grey),
                                       prefixIcon: Icon(Icons.person),
                                       border: OutlineInputBorder(
                                           borderRadius:
@@ -96,7 +96,7 @@ class RegisterScreen extends StatelessWidget {
                                         labelText: 'Email',
                                         hintText: 'Enter your Email',
                                         hintStyle:
-                                        TextStyle(color: Colors.grey),
+                                            TextStyle(color: Colors.grey),
                                         prefixIcon: Icon(Icons.email),
                                         border: OutlineInputBorder(
                                             borderRadius:
@@ -113,7 +113,7 @@ class RegisterScreen extends StatelessWidget {
                                         labelText: 'Password',
                                         hintText: 'Enter your password',
                                         hintStyle:
-                                        TextStyle(color: Colors.grey),
+                                            TextStyle(color: Colors.grey),
                                         prefixIcon: Icon(Icons.password),
                                         suffixIcon: IconButton(
                                           onPressed: controller.seenpassword,
@@ -136,8 +136,8 @@ class RegisterScreen extends StatelessWidget {
                                         labelText: 'Personal ID',
                                         hintText: 'Enter your Personal ID',
                                         hintStyle:
-                                        TextStyle(color: Colors.grey),
-                                        prefixIcon: Icon(Icons.numbers),
+                                            TextStyle(color: Colors.grey),
+                                        prefixIcon: Icon(Icons.credit_card),
                                         border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
@@ -152,7 +152,7 @@ class RegisterScreen extends StatelessWidget {
                                         labelText: 'Phone',
                                         hintText: 'Enter your phone',
                                         hintStyle:
-                                        TextStyle(color: Colors.grey),
+                                            TextStyle(color: Colors.grey),
                                         prefixIcon: Icon(Icons.phone),
                                         border: OutlineInputBorder(
                                             borderRadius:
@@ -168,12 +168,17 @@ class RegisterScreen extends StatelessWidget {
                                             backgroundColor: Colors.deepPurple),
                                         onPressed: () async {
                                           await controller.creatacount();
-                                          await controller.storedata();
+                                          await controller.storedata(context);
                                           if (controller.state) {
-                                            Get.to(() => LoginScreen());
+                                            Get.to(() => LoginScreen(),transition: Transition.zoom,duration: Duration(seconds: 10));
                                           }
                                         },
-                                        child: Text("Register",style: TextStyle(color: Colors.white,fontSize: 17),)),
+                                        child: Text(
+                                          "Register",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17),
+                                        )),
                                   ),
                                   SizedBox(
                                     height: 20,
@@ -186,7 +191,7 @@ class RegisterScreen extends StatelessWidget {
                                           Text("Already have Account ?"),
                                           InkWell(
                                             onTap: () {
-                                              Get.to(LoginScreen());
+                                              Get.to(LoginScreen(),transition: Transition.fade,duration: Duration(seconds: 1));
                                             },
                                             child: Text(
                                               "Login",

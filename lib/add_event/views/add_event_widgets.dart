@@ -21,7 +21,7 @@ Widget drawerTextField(TextEditingController textEditingController,
         labelText: label,
         border: const OutlineInputBorder(),
         focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue)),
+            borderSide: BorderSide(color: Colors.black)),
       ),
       keyboardType: textInputType,
     ),
@@ -121,7 +121,10 @@ Widget drawerImagesTextField(AddEventController addEventController) {
     padding: const EdgeInsets.all(20),
 
     child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurple),
       onPressed: () async {
+
        if (addEventController.checkInputs()){
 
         await addEventController.uploadImagesToFireStorage();
@@ -129,7 +132,7 @@ Widget drawerImagesTextField(AddEventController addEventController) {
          addEventController.clearInputs();
        }
       },
-      child: const Text('Publish Event'),
+      child: const Text('Publish Event',style: TextStyle(color: Colors.white,fontSize: 16),),
     ),
   );
 
