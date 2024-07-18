@@ -129,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.deepPurple),
                                         onPressed: () async {
-                                        await  controller.login();
+                                        await  controller.login(context);
                                           if (kDebugMode) {
                                             print("***controller.state.value==${controller.state.value} *******");
                                           }
@@ -155,7 +155,7 @@ class LoginScreen extends StatelessWidget {
                                           Text("Don't have account ?"),
                                           InkWell(
                                             onTap: () {
-                                              Get.to(RegisterScreen());
+                                              Get.to(RegisterScreen(), transition: Transition.zoom);
                                             },
                                             child: Text(
                                               "Register",

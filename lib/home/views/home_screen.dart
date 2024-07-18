@@ -34,8 +34,8 @@ class HomeScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment:MainAxisAlignment.end,
         children: [Icon(Icons.event_available_sharp, size: 20), Text("Events",style: TextStyle(
-      fontSize: 8,
-    ))],
+          fontSize: 8,
+        ))],
       ),
     ),
     const SizedBox(

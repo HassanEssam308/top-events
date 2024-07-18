@@ -15,7 +15,8 @@ class AddEventScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Add Event'),
+          title: const Text('Add Event',style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.deepPurple,
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),

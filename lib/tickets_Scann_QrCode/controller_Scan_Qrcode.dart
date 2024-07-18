@@ -4,7 +4,9 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 
 class ScannerQrcodeController extends GetxController {
-  var qrstr = "let's Scan it";
+  var qrstr = "";
+  String oneid="";
+  String twoid="";
 
   Future<void> scanQr() async {
     try {
@@ -18,4 +20,16 @@ class ScannerQrcodeController extends GetxController {
       update();
     }
   }
+  splitcode(){
+    String inputString = qrstr;
+    List<String> splitString = inputString.split('/');
+    oneid=splitString[0];
+    twoid=splitString[1];
+    print("****************$oneid");
+    print("****************$twoid");
+    update();
+
+  }
+
+
 }

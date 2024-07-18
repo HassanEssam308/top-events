@@ -23,6 +23,7 @@ class EventDetailsController extends GetxController {
   //   update();
   // }
 
+
   goToMap(LatLng latLng) async {
     print("${latLng.latitude},${latLng.longitude}");
     String mapUrl =

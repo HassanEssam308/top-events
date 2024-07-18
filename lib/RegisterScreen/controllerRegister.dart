@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Controllerregister extends GetxController {
-  final _auth = FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   bool state = false;
   var isscure=true.obs;
 
@@ -15,6 +16,7 @@ class Controllerregister extends GetxController {
   TextEditingController phone = TextEditingController();
 
   Future<void> creatacount() async {
+
     if (Email.text.isEmpty ||
         pass.text.isEmpty ||
         name.text.isEmpty ||
@@ -23,7 +25,7 @@ class Controllerregister extends GetxController {
       print("please enter data");
     } else {
       try {
-        await _auth.createUserWithEmailAndPassword(
+        await auth.createUserWithEmailAndPassword(
             email: Email.text, password: pass.text);
         state = true;
         print(
@@ -34,20 +36,30 @@ class Controllerregister extends GetxController {
     }
   }
 
-  storedata() async {
+  storedata(BuildContext context) async {
+
+
     if (Email.text.isEmpty ||
         pass.text.isEmpty ||
         name.text.isEmpty ||
         ID.text.isEmpty ||
         phone.text.isEmpty) {
-      print("please enter data");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please enter all the data"),
+          duration: Duration(seconds: 2),
+        ),
+      );
     } else {
       try {
-        await FirebaseFirestore.instance.collection('users').add({
+        final User? user = auth.currentUser;
+        final uid = user!.uid;
+        await FirebaseFirestore.instance.collection("users").doc(uid).set({
           'email': Email.text,
           'name': name.text,
           'personalId': ID.text,
-          'phone': phone.text
+          'phone': phone.text,
+          'isAdmin':false
         });
         state = true;
         print('Document added successfully');

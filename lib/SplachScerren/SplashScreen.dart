@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:top_events/LoginScrren/LoginScreen.dart';
 
+import '../Home/views/home_screen.dart';
 import '../constants.dart';
-import '../home/Views/home_screen.dart';
+
 
 class SplashScreen extends StatelessWidget {
    SplashScreen({super.key});
