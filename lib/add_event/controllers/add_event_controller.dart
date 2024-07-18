@@ -9,8 +9,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:top_events/add_event/models/event_model.dart';
 import 'package:top_events/constants.dart';
+import 'package:top_events/service/functions_service.dart';
 
 class AddEventController extends GetxController {
+  final String? eventId;
+
+  AddEventController({required this.eventId});
+
   TextEditingController ownerNameController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -21,16 +26,17 @@ class AddEventController extends GetxController {
   TextEditingController cityController = TextEditingController();
   DateTime? eventDate;
   Rx<MapType> currentMapType = Rx(MapType.normal);
-
+  List<File?> imagesFile = [];
+  List<String> imagesUrlList =[];
+  List<String>  removeImagesUrlList =[];
   LatLng? currentLatLng;
 
   late Set<Marker> markers;
+  // RxList<Widget> allImages = RxList([]);
 
   @override
   void onInit() {
-
     if (currentLatLng == null) {
-
       markers = {
         Marker(
             markerId: const MarkerId("1"),
@@ -47,11 +53,58 @@ class AddEventController extends GetxController {
     } else {
       addMarker(currentLatLng!);
     }
+
     super.onInit();
   }
 
-  List<File?> imagesFile = [];
-  List<String> _imagesUrlList = [];
+  @override
+  void onReady() {
+    if (eventId != null) getEventById();
+    super.onReady();
+  }
+
+  getEventById() {
+    fireStoreInstance.collection('events').doc(eventId).get().then((value) {
+
+      EventModel event = EventModel.fromFireStoreBySnapshot(value);
+
+
+      setEventInInput(event);
+    }).catchError((err) {
+      Get.snackbar('Error getEventById', err.masege);
+      if (kDebugMode) {
+        print('*****getEventById**err=$err');
+      }
+    });
+  }
+
+  setEventInInput(EventModel event) {
+    ownerNameController.text = event.ownerName ?? '';
+    titleController.text = event.eventTitle ?? '';
+    descriptionController.text = event.description ?? "";
+    priceController.text = event.ticketPrice.toString() ?? '';
+    if (event.eventLocation != null) setLocationToInput(event.eventLocation!);
+
+    dateController.text = FunctionsService.formatDateToInitialValueString(event.date);
+    eventDate =  DateTime.fromMillisecondsSinceEpoch(event.date!.seconds * 1000);
+    imagesUrlList =List.from(event.images!) ;
+
+  }
+
+  setLocationToInput(EventLocation eventLocation) {
+    locationController.text = '${eventLocation.street},'
+        '${eventLocation.governorate},${eventLocation.country}';
+    googleMapController?.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+          target: LatLng(
+              eventLocation.latLng!.latitude, eventLocation.latLng!.longitude),
+          zoom: 12),
+    ));
+    addMarker(LatLng(
+        eventLocation.latLng!.latitude, eventLocation.latLng!.longitude));
+    setSelectedLatLng(LatLng(
+        eventLocation.latLng!.latitude, eventLocation.latLng!.longitude));
+  }
 
   Future<void> searchCity() async {
     if (cityController.text.isNotEmpty) {
@@ -165,17 +218,23 @@ class AddEventController extends GetxController {
     update();
   }
 
+  void removeImageUrlByIndex(int index) {
+    imagesUrlList.removeAt(index);
+    update();
+  }
+
   void insertEventToFireStore() {
     List allLocation = locationController.text.split(',');
-
+    String userId = box.read('uid');
+    // print('*********userId=$userId');
     final event = EventModel(
-      ownerId: box.read('uid'),
+      ownerId: userId,
       ownerName: ownerNameController.text,
       eventTitle: titleController.text,
       description: descriptionController.text,
       ticketPrice: int.parse(priceController.text),
-      images: _imagesUrlList,
-      status: EventStatus.accepted,
+      images: imagesUrlList,
+      status: EventStatus.pending,
       date: convertDateToTimestamp(),
       eventLocation: EventLocation(
           street: allLocation[0],
@@ -185,21 +244,61 @@ class AddEventController extends GetxController {
       subscribers: [],
     ).toFireStoreJson();
 
-    fireStoreInstance.collection('events').add(event).then((value) {
-      Get.snackbar('published Successfully', '');
-    }).catchError((error) {
-      if (error is FirebaseException) {
-        if (kDebugMode) {
-          print("Creation Error=>FirebaseException: ${error.code}");
+    //add
+    if (eventId == null) {
+      fireStoreInstance.collection('events').add(event).then((value) {
+        Get.snackbar('published Successfully', '');
+      }).catchError((error) {
+        if (error is FirebaseException) {
+          if (kDebugMode) {
+            print("Creation Error=>FirebaseException: ${error.code}");
+          }
+          Get.snackbar('Creation Error', '${error.message}');
+        } else {
+          Get.snackbar('Creation Error', error.toString());
+          if (kDebugMode) {
+            print("Error writing document: $error");
+          }
         }
-        Get.snackbar('Creation Error', '${error.message}');
-      } else {
-        Get.snackbar('Creation Error', error.toString());
-        if (kDebugMode) {
-          print("Error writing document: $error");
+      });
+    } else {
+      //update
+      fireStoreInstance
+          .collection('events')
+          .doc(eventId)
+          .update(event)
+          .then((onValue) {
+        Get.snackbar('Event updated  Successfully', '');
+      }).catchError((error) {
+        if (error is FirebaseException) {
+          if (kDebugMode) {
+            print("Creation Error=>FirebaseException: ${error.code}");
+          }
+          Get.snackbar('Creation Error', '${error.message}');
+        } else {
+          Get.snackbar('Creation Error', error.toString());
+          if (kDebugMode) {
+            print("Error writing document: $error");
+          }
         }
+      });
+    }
+    _deleteImageFromFireStorage(removeImagesUrlList);
+  }
+
+  Future<void> _deleteImageFromFireStorage( List<String> imagesUrl) async {
+    for(int i =0; i<imagesUrl.length;i++){
+
+    try {
+      await storageInstance.refFromURL(imagesUrl[i]).delete().then((value) {
+        // Get.snackbar("image deleted", '');
+      });
+    } catch (err) {
+      if (kDebugMode) {
+        print('*******deleteImageFromFireStorage=$err');
       }
-    });
+    }
+    }
   }
 
   Future<void> uploadImagesToFireStorage() async {
@@ -216,7 +315,7 @@ class AddEventController extends GetxController {
               .putFile(imagesFile[i]!)
               .then((TaskSnapshot taskSnapshot) async {
             String downloadImageUrl = await taskSnapshot.ref.getDownloadURL();
-            _imagesUrlList.add(downloadImageUrl);
+            imagesUrlList.add(downloadImageUrl);
           }).catchError((error) {
             if (error is FirebaseException) {
               if (kDebugMode) {
@@ -275,7 +374,8 @@ class AddEventController extends GetxController {
     locationController.clear();
     cityController.clear();
     currentLatLng = null;
-    imagesFile = [];
+    imagesFile.clear();
+    imagesUrlList.clear();
     update();
   }
 
@@ -292,4 +392,58 @@ class AddEventController extends GetxController {
       currentMapType.value = MapType.normal;
     }
   }
+
+  //  drawerAllImages() {
+  //   // print('**drawerAllImages***********imagesUrlList*length==${imagesUrlList.length }');
+  //     for (int i = 0; i < imagesFile.length; i++) {
+  //       allImages.add(Stack(children: [
+  //         Padding(
+  //             padding: const EdgeInsets.all(2.0),
+  //             child: Image.network(imagesUrlList[i])),
+  //         Positioned(
+  //           top: 2,
+  //           right: 3,
+  //           child: InkWell(
+  //               onTap: () async {
+  //                 removeImageUrlByIndex(i);
+  //                 await deleteImageFromFireStorage(
+  //                     imagesUrlList[i]);
+  //               },
+  //               child: const Icon(
+  //                 Icons.cancel_presentation_sharp,
+  //                 size: 28,
+  //                 color: Colors.redAccent,
+  //               )),
+  //         )
+  //       ]));
+  //     }
+  //   // print('**drawerAllImages***********imagesFile*length==${imagesFile.length }');
+  //
+  //     for (int i = 0; i < imagesFile.length; i++) {
+  //       allImages.add(
+  //         Stack(children: [
+  //           Padding(
+  //             padding: const EdgeInsets.all(2.0),
+  //             child: Image.file(File(
+  //               imagesFile[i]!.path,
+  //             )),
+  //           ),
+  //           Positioned(
+  //             top: 2,
+  //             right: 3,
+  //             child: InkWell(
+  //                 onTap: () {
+  //                   removeImageByIndex(i);
+  //                 },
+  //                 child: const Icon(
+  //                   Icons.cancel_presentation_sharp,
+  //                   size: 28,
+  //                   color: Colors.redAccent,
+  //                 )),
+  //           )
+  //         ]),
+  //       );
+  //     }
+  //     update() ;
+  // }
 }

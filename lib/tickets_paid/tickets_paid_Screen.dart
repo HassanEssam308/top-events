@@ -60,7 +60,7 @@ class TicketsPaidScreen extends StatelessWidget {
                     onPressed: () {
                       if (controller.formKey.currentState!.validate()) {
                         print('valid');
-                        Get.to(ticketspage());
+                        Get.to(TicketsStorage());
                         // Add further actions here like sending the data to the server or saving it
                       } else {
                         print('inValid');

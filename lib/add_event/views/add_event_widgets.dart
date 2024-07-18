@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_events/add_event/controllers/add_event_controller.dart';
@@ -8,13 +9,13 @@ import 'package:top_events/add_event/controllers/add_event_controller.dart';
 import 'location_screen.dart';
 
 Widget drawerTextField(TextEditingController textEditingController,
-    String label, TextInputType textInputType ,
+    String label, TextInputType textInputType,
     {int maxLines = 1, int minLines = 1}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: TextField(
       controller: textEditingController,
-      maxLines:maxLines,
+      maxLines: maxLines,
       minLines: minLines,
       decoration: InputDecoration(
         // hintText: label,
@@ -78,6 +79,7 @@ Widget drawerImagesTextField(AddEventController addEventController) {
             )
           ],
         ),
+
         //ListImages
         if (addEventController.imagesFile.isNotEmpty)
           SizedBox(
@@ -110,29 +112,138 @@ Widget drawerImagesTextField(AddEventController addEventController) {
               },
               scrollDirection: Axis.horizontal,
             ),
+          ),
+
+        ///  imagesUrlList
+        if (addEventController.imagesUrlList.length>0)
+          SizedBox(
+            width: double.infinity,
+            height: 150,
+            child: ListView.builder(
+              itemCount: addEventController.imagesUrlList.length,
+              itemBuilder: (BuildContext context, int i) {
+                return Stack(children: [
+                  Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Image.network(
+                          addEventController.imagesUrlList[i])),
+                  Positioned(
+                    top: 2,
+                    right: 3,
+                    child: InkWell(
+                        onTap: ()  {
+                           addEventController.removeImagesUrlList.add(
+                               addEventController.imagesUrlList[i]
+                           );
+                          addEventController.removeImageUrlByIndex(i);
+                        },
+                        child: const Icon(
+                          Icons.cancel_presentation_sharp,
+                          size: 28,
+                          color: Colors.redAccent,
+                        )),
+                  )
+                ]);
+              },
+              scrollDirection: Axis.horizontal,
+            ),
           )
       ],
     ),
   );
 }
 
-  Widget drawerButtonSaveDataToFirebase(AddEventController addEventController) {
+// List<Widget> drawerAllImages(AddEventController addEventController) {
+//   List<Widget> allImages = [];
+//
+//   print('**drawerAllImages***********imagesUrlList*length==${addEventController.imagesUrlList.length }');
+//     if (addEventController.imagesUrlList.length > 1) {
+//        for (int i = 0; i < addEventController.imagesFile.length; i++) {
+//       allImages.add(Stack(children: [
+//         Padding(
+//             padding: const EdgeInsets.all(2.0),
+//             child: Obx(()=>Image.network(addEventController.imagesUrlList[i]))),
+//         Positioned(
+//           top: 2,
+//           right: 3,
+//           child: InkWell(
+//               onTap: () async {
+//                 addEventController.removeImageUrlByIndex(i);
+//                 await addEventController.deleteImageFromFireStorage(
+//                     addEventController.imagesUrlList[i]);
+//               },
+//               child: const Icon(
+//                 Icons.cancel_presentation_sharp,
+//                 size: 28,
+//                 color: Colors.redAccent,
+//               )),
+//         )
+//       ]));
+//     }
+//   }
+//
+//   print('**drawerAllImages***********imagesFile*length==${addEventController.imagesFile.length }');
+//
+//   if (addEventController.imagesFile.length > 1) {
+//     for (int i = 0; i < addEventController.imagesFile.length; i++) {
+//       allImages.add(
+//         Stack(children: [
+//           Padding(
+//             padding: const EdgeInsets.all(2.0),
+//             child: Image.file(File(
+//               addEventController.imagesFile[i]!.path,
+//             )),
+//           ),
+//           Positioned(
+//             top: 2,
+//             right: 3,
+//             child: InkWell(
+//                 onTap: () {
+//                   addEventController.removeImageByIndex(i);
+//                 },
+//                 child: const Icon(
+//                   Icons.cancel_presentation_sharp,
+//                   size: 28,
+//                   color: Colors.redAccent,
+//                 )),
+//           )
+//         ]),
+//       );
+//     }
+//   }
+//   return allImages;
+// }
+
+Widget drawerButtonSaveDataToFirebase(AddEventController addEventController) {
   return Container(
     padding: const EdgeInsets.all(20),
-
     child: ElevatedButton(
       onPressed: () async {
-       if (addEventController.checkInputs()){
-
-        await addEventController.uploadImagesToFireStorage();
+        if (addEventController.checkInputs()) {
+          await addEventController.uploadImagesToFireStorage();
           addEventController.insertEventToFireStore();
-         addEventController.clearInputs();
-       }
+          addEventController.clearInputs();
+        }
       },
       child: const Text('Publish Event'),
     ),
   );
+}
 
+Widget drawerButtonUpdateDataToFirebase(AddEventController addEventController) {
+  return Container(
+    padding: const EdgeInsets.all(20),
+    child: ElevatedButton(
+      onPressed: () async {
+        if (addEventController.checkInputs()) {
+          await addEventController.uploadImagesToFireStorage();
+          addEventController.insertEventToFireStore();
+          addEventController.clearInputs();
+        }
+      },
+      child: const Text('Update Event'),
+    ),
+  );
 }
 
 Widget drawerLocationTextField(TextEditingController textEditingController,
@@ -146,8 +257,8 @@ Widget drawerLocationTextField(TextEditingController textEditingController,
         suffixIcon: IconButton(
             color: Colors.grey[300],
             onPressed: () => Get.to(LocationScreen(
-              addEventController: addEventController,
-            )),
+                  addEventController: addEventController,
+                )),
             icon: addEventController.iconOfLocation()),
         border: const OutlineInputBorder(),
         focusedBorder: const OutlineInputBorder(
