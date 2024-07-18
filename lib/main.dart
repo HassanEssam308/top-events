@@ -16,7 +16,6 @@ import 'all_Tickets/tickets_storage.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -36,15 +35,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:HomeScreen(),
+      home: SplashScreen(),
       initialRoute: '/',
       getPages: [
-         GetPage(name: '/', page: () =>  SplashScreen() ),
-         GetPage(name: '/loginScreen', page: () =>  LoginScreen() ),
-       GetPage(name: '/home', page: () =>  HomeScreen() ),
-        GetPage(name: '/allEvents', page: () => const AllEventsScreen() ),
-        GetPage(name: '/addEvent', page: () =>  const AddEventScreen()),
-        //GetPage(name: '/createTicket', page: () =>  const TicketsGenrateQrcode()),
+        GetPage(name: '/', page: () => SplashScreen()),
+        GetPage(name: '/loginScreen', page: () => LoginScreen()),
+        GetPage(name: '/home', page: () => HomeScreen()),
+        GetPage(name: '/allEvents', page: () => AllEventsScreen()),
+        GetPage(name: '/addEvent', page: () => const AddEventScreen()),
+
       ],
     );
   }

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EventModel {
-
   String? id;
   String? ownerId;
   String? ownerName;
@@ -15,7 +14,7 @@ class EventModel {
   List<String?>? subscribers;
 
   EventModel({
-     this.id,
+    this.id,
     required this.ownerId,
     required this.ownerName,
     required this.eventTitle,
@@ -29,20 +28,20 @@ class EventModel {
   });
 
   factory EventModel.fromFireStoreBySnapshot(
-      DocumentSnapshot<Map<String, dynamic>> docSnap ) {
+      DocumentSnapshot<Map<String, dynamic>> docSnap) {
     final data = docSnap.data()!;
     return EventModel(
-      id: docSnap .id,
-      ownerId: data["ownerId"]??'',
-      ownerName: data["ownerName"]??'',
-      eventTitle: data["eventTitle"]??'',
-      description: data["description"]??'',
-      ticketPrice: data["ticketPrice"]??'',
+      id: docSnap.id,
+      ownerId: data["ownerId"] ?? '',
+      ownerName: data["ownerName"] ?? '',
+      eventTitle: data["eventTitle"] ?? '',
+      description: data["description"] ?? '',
+      ticketPrice: data["ticketPrice"] ?? '',
       images: data["images"] is Iterable ? List.from(data['images']) : null,
-      status: eventStatusValues.map[data["status"]??'accepted']!,
-      date: data["date"]??'',
-      eventLocation: EventLocation.fromMap(data["eventLocation"]??''),
-      subscribers: List<String>.from( data["subscribers"]??[]),
+      status: eventStatusValues.map[data["status"] ?? 'accepted']!,
+      date: data["date"] ?? '',
+      eventLocation: EventLocation.fromMap(data["eventLocation"] ?? ''),
+      subscribers: List<String>.from(data["subscribers"] ?? []),
     );
   }
   static Stream<EventModel> fromFireStoreByStream(
@@ -65,16 +64,15 @@ class EventModel {
     });
   }
 
-
-  Map<String, dynamic> toFireStoreJson() =>
-      {
+  Map<String, dynamic> toFireStoreJson() => {
         "ownerName": ownerName,
+        "ownerId": ownerId,
         "eventTitle": eventTitle,
         "description": description,
-        "ticketPrice":ticketPrice,
-        "images":images,
-        "status":eventStatusValues.reverse[status] ,
-        "date":date,
+        "ticketPrice": ticketPrice,
+        "images": images,
+        "status": eventStatusValues.reverse[status],
+        "date": date,
         "eventLocation": eventLocation?.toJson(),
         "subscribers": subscribers,
       };
@@ -121,13 +119,12 @@ class EventLocation {
         latLng: data?['latLng']);
   }
 
-   Map<String, dynamic> toJson() => {
-   "country": country,
-   "governorate": governorate,
-   "street": street,
-   "latLng":latLng,
-   };
-
+  Map<String, dynamic> toJson() => {
+        "country": country,
+        "governorate": governorate,
+        "street": street,
+        "latLng": latLng,
+      };
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //  class Xxx {

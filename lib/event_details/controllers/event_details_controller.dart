@@ -5,23 +5,23 @@ import 'package:top_events/event_details/event_details_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailsController extends GetxController {
-  final String eventId;
-
-  EventDetailsController({required this.eventId});
-
-  Rx<EventModel?> eventModel = Rx(null);
-
-  @override
-  void onReady() {
-    loadEvent();
-    super.onReady();
-  }
-
-  void loadEvent() async {
-    eventModel.value =
-        await EventDetailsRepository().getEventByEventId(eventId);
-    update();
-  }
+  // final String eventId;
+  //
+  // EventDetailsController({required this.eventId});
+  //
+  // Rx<EventModel?> eventModel = Rx(null);
+  //
+  // @override
+  // void onReady() {
+  //   loadEvent();
+  //   super.onReady();
+  // }
+  //
+  // void loadEvent() async {
+  //   eventModel.value =
+  //       await EventDetailsRepository().getEventByEventId(eventId);
+  //   update();
+  // }
 
 
   goToMap(LatLng latLng) async {
