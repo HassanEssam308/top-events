@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_events/add_event/controllers/add_event_controller.dart';
+import 'package:top_events/widgets/custom_dropdown_button_widget.dart';
 import 'add_event_widgets.dart';
 
 class AddEventScreen extends StatelessWidget {
-  const AddEventScreen({super.key});
+  final String? eventId;
+   const AddEventScreen({super.key,this.eventId});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class AddEventScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GetBuilder<AddEventController>(
-            init: AddEventController(),
+            init: AddEventController(eventId: eventId),
             builder: (addEventController) {
               return SingleChildScrollView(
                 child: Column(
@@ -35,11 +37,19 @@ class AddEventScreen extends StatelessWidget {
                         addEventController.locationController,
                         addEventController),
 
-                    //Date picker
+                    ///DropdownButton to Event Status
+                    eventId!=null?
+                        CustomDropdownButtonWidget()
+                   : Text(''),
+
+                    ///Date picker
                     drawerDateTimePicker(addEventController.dateController , addEventController ),
-                    //images
+                    ///images
                     drawerImagesTextField(addEventController),
-                    drawerButtonSaveDataToFirebase(addEventController),
+                    eventId!=null?
+                    drawerButtonUpdateDataToFirebase(addEventController)
+                    :drawerButtonSaveDataToFirebase(addEventController)
+
                   ],
                 ),
               );
