@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_events/add_event/controllers/add_event_controller.dart';
@@ -225,26 +224,26 @@ Widget drawerButtonSaveDataToFirebase(AddEventController addEventController) {
           addEventController.clearInputs();
         }
       },
-      child: const Text('Publish Event'),
+      child:  Text(addEventController.eventId==null?'Publish Event':'Update Event'),
     ),
   );
 }
 
-Widget drawerButtonUpdateDataToFirebase(AddEventController addEventController) {
-  return Container(
-    padding: const EdgeInsets.all(20),
-    child: ElevatedButton(
-      onPressed: () async {
-        if (addEventController.checkInputs()) {
-          await addEventController.uploadImagesToFireStorage();
-          addEventController.insertEventToFireStore();
-          addEventController.clearInputs();
-        }
-      },
-      child: const Text('Update Event'),
-    ),
-  );
-}
+// Widget drawerButtonUpdateDataToFirebase(AddEventController addEventController) {
+//   return Container(
+//     padding: const EdgeInsets.all(20),
+//     child: ElevatedButton(
+//       onPressed: () async {
+//         if (addEventController.checkInputs()) {
+//           await addEventController.uploadImagesToFireStorage();
+//           addEventController.insertEventToFireStore();
+//           addEventController.clearInputs();
+//         }
+//       },
+//       child: const Text('Update Event'),
+//     ),
+//   );
+// }
 
 Widget drawerLocationTextField(TextEditingController textEditingController,
     AddEventController addEventController) {
