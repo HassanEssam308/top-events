@@ -50,7 +50,7 @@ class _OnbordingState extends State<Onbording> {
                   children: [
                     Image.asset(
                       contents[i].image,
-                      height: 500,
+                      height: 400,
                       width: 600,
                     ),
 
@@ -62,12 +62,15 @@ class _OnbordingState extends State<Onbording> {
                       ),
                     ),
                     // SizedBox(height: 20),
-                    Text(
-                      contents[i].discription,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(
+                        contents[i].discription,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
+                        ),
                       ),
                     )
                   ],

@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                                 String phone =
                                     userDocument.get('phone') ?? 'No event ID';
                                 String image =
-                                    userDocument.get('image') ?? 'No event ID';
+                                    userDocument.get('image') ?? '';
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 20),
                                   child: Column(
@@ -70,7 +70,8 @@ class ProfileScreen extends StatelessWidget {
 
                                       CircleAvatar(
                                         radius: 70,
-                                        backgroundImage: NetworkImage(image),
+                                        backgroundImage:image.isNotEmpty? NetworkImage(image)
+                                        :const AssetImage('image/prson2.png'),
                                       ),
                                       SizedBox(
                                         height: 50,

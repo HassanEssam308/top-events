@@ -74,13 +74,22 @@ class Editeprofilescreen extends StatelessWidget {
                                   Stack(
                                     alignment: AlignmentDirectional.bottomEnd,
                                     children: [
+                                      // CircleAvatar(
+                                      //   radius: 70,
+                                      //   backgroundImage: controller.imageFile !=
+                                      //           null
+                                      //       ? FileImage(controller.imageFile!)
+                                      //           as ImageProvider
+                                      //       : NetworkImage(image),
+                                      // ),
                                       CircleAvatar(
                                         radius: 70,
                                         backgroundImage: controller.imageFile !=
                                                 null
                                             ? FileImage(controller.imageFile!)
                                                 as ImageProvider
-                                            : NetworkImage(image),
+                                            :image.isNotEmpty? NetworkImage(image)
+                                        :const AssetImage('image/prson2.png'),
                                       ),
                                       InkWell(
                                         onTap: () {
@@ -193,7 +202,8 @@ class Editeprofilescreen extends StatelessWidget {
                             controller.uploadImage();
                             await controller.updateEmail(controller.Email.text,controller.pass.text);
                            // await controller.updatePassword(controller.pass.text);
-                            Get.to(ProfileScreen());
+                           //  Get.to(ProfileScreen());
+                            Get.back();
                           },
                           child: const Text(
                             'Save data',
