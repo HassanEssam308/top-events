@@ -9,27 +9,27 @@ import '../constants.dart';
 
 
 class SplashScreen extends StatelessWidget {
-   SplashScreen({super.key});
-   Widget drawerWidget() {
+  SplashScreen({super.key});
+  Widget drawerWidget() {
     var  userID= box.read('uid');
-      bool open=box.read("isFirstOpen")??true;
-     return (open)?Onbording():
-     (userID==null)?LoginScreen(): HomeScreen() ;
-   }
+    bool open=box.read("isFirstOpen")??true;
+    return (open)?Onbording():
+    (userID==null)?LoginScreen(): HomeScreen() ;
+  }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(splash:
-      Column(children: [
-            Expanded(
-              child: Center(
-                child: LottieBuilder.asset("lottie/Animation - 1720253908181.json"),
-              ),
-            )
-      ],),
-        nextScreen: drawerWidget(),
-    splashIconSize: 250,
-    duration:6000,
+    Column(children: [
+      Expanded(
+        child: Center(
+          child: LottieBuilder.asset("lottie/Animation - 1720253908181.json"),
+        ),
+      )
+    ],),
+      nextScreen: drawerWidget(),
+      splashIconSize: 250,
+      duration:5000,
       backgroundColor: Colors.white,);
   }
 }

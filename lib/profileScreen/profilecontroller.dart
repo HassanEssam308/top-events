@@ -53,58 +53,10 @@ class ProfileController extends GetxController {
   final ImagePicker _picker = ImagePicker();
   var stute=true.obs;
 
-  Future<void> pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      imageFile = File(pickedFile.path);
-      update();
-    }
-  }
-
-  Future<void> uploadImage() async {
-    if (imageFile == null) return;
-
-    try {
-      final storageRef = FirebaseStorage.instance
-          .ref()
-          .child('profiles/${DateTime.now().millisecondsSinceEpoch}.jpg');
-      final uploadTask = storageRef.putFile(imageFile!);
-
-      final snapshot = await uploadTask;
-      downloadUrl = await snapshot.ref.getDownloadURL();
-      update();
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  storedata() async {
 
 
-    if (Email.text.isEmpty ||
-        name.text.isEmpty ||
-        ID.text.isEmpty ||
-        phone.text.isEmpty) {
-      print("please enter data");
-    } else {
-      try {
-        final User? user = auth.currentUser;
-        final uid = user!.uid;
-        await FirebaseFirestore.instance.collection("users").doc(uid).set({
-          'email': Email.text,
-          'name': name.text,
-          'personalId': ID.text,
-          'phone': phone.text
-        });
 
-        print('Document added successfully');
-      } on FirebaseException catch (e) {
-        print('Error: $e');
-      } catch (e) {
-        print('Error: $e');
-      }
-    }
-  }
+
 
 
 

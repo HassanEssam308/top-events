@@ -94,7 +94,8 @@ class TicketsScannQrcode extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Scan qr"),
+          automaticallyImplyLeading: false,
+          title: Text("Scan QrCode",style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.deepPurple,
         ),
         body: Padding(
@@ -136,6 +137,7 @@ class TicketsScannQrcode extends StatelessWidget {
                               // ),
                             ],
                           ),
+                          SizedBox(height: 20,),
                           StreamBuilder(
                             stream: _firestore
                                 .collection('tickets')
@@ -164,11 +166,16 @@ class TicketsScannQrcode extends StatelessWidget {
                                     String userId = docs1[index].get('userid');
 
                                     return Card(
+
+                                      elevation: 8,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                      ),
                                       child: Column(
                                         children: [
-                                          Text(name),
-                                          SizedBox(height: 20),
-                                          Text(text),
+                                          Text(name,style: TextStyle(fontSize: 18),),
+                                          SizedBox(height: 15),
+                                          Text(text,style: TextStyle(fontSize: 18)),
                                         ],
                                       ),
                                     );
