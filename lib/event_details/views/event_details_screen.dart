@@ -8,6 +8,7 @@ import 'package:top_events/constants.dart';
 import 'package:top_events/event_details/controllers/event_details_controller.dart';
 
 import '../../service/functions_service.dart';
+import '../../tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final String eventId;
@@ -188,7 +189,7 @@ class EventDetailsScreen extends StatelessWidget {
             elevation: 2,
             color: Colors.purpleAccent[100],
             onPressed: () {
-              Get.toNamed('/createTicket');
+              Get.to(TicketsGenrateQrcode(eventid: eventId,));
             },
             child: const Padding(
               padding: EdgeInsets.all(13.0),

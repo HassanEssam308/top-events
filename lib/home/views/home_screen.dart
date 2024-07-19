@@ -38,15 +38,7 @@ class HomeScreen extends StatelessWidget {
         ))],
       ),
     ),
-    const SizedBox(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment:MainAxisAlignment.end,
-        children: [Icon(Icons.ballot_sharp, size: 20), Text("Tickets",style: TextStyle(
-          fontSize: 8,
-        ))],
-      ),
-    ),
+
   ];
 
   @override

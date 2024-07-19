@@ -14,6 +14,10 @@ class Controllerlogin extends GetxController{
   Rx<bool> state =Rx(false);
   var isscure=true.obs;
 
+  @override
+  onReady(){
+    box.write("isFirstOpen", false);
+  }
 
  Future<void> login(BuildContext context) async {
     if (Email.text.isEmpty || pass.text.isEmpty) {
