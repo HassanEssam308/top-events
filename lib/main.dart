@@ -8,6 +8,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:top_events/LoginScrren/LoginScreen.dart';
 import 'package:top_events/SplachScerren/SplashScreen.dart';
 import 'package:top_events/all_events/views/all_events_screen.dart';
+import 'package:top_events/profileScreen/EditeProfileScreen.dart';
+import 'package:top_events/profileScreen/profileScreen.dart';
 
 import 'firebase_options.dart';
 
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home', page: () => HomeScreen()),
         GetPage(name: '/allEvents', page: () => AllEventsScreen()),
         GetPage(name: '/addEvent', page: () => const AddEventScreen()),
+        GetPage(name: '/profileScreen', page: () =>  ProfileScreen()),
+        GetPage(name: '/editeProfileScreen', page: () =>  Editeprofilescreen()),
 
       ],
     );

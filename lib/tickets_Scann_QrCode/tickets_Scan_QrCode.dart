@@ -126,14 +126,14 @@ class TicketsScannQrcode extends StatelessWidget {
                               SizedBox(
                                 width: 20,
                               ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.deepPurple),
-                                onPressed: controller.splitcode,
-                                child: Text('Search',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15)),
-                              ),
+                              // ElevatedButton(
+                              //   style: ElevatedButton.styleFrom(
+                              //       backgroundColor: Colors.deepPurple),
+                              //   onPressed: controller.splitcode,
+                              //   child: Text('Search',
+                              //       style: TextStyle(
+                              //           color: Colors.white, fontSize: 15)),
+                              // ),
                             ],
                           ),
                           StreamBuilder(

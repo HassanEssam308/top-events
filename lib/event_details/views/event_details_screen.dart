@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,9 +15,11 @@ import '../../tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
 class EventDetailsScreen extends StatelessWidget {
   final String eventId;
 
-   EventDetailsScreen({required this.eventId, super.key});
+  EventDetailsScreen({required this.eventId, super.key});
 
-   final EventDetailsController detailsController =Get.put(EventDetailsController());
+  final EventDetailsController detailsController =
+      Get.put(EventDetailsController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,17 +27,16 @@ class EventDetailsScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Event Details'),
         ),
-        floatingActionButton:
-            drawerFloatingGetTicketAndEditeButton(context, eventId,detailsController),
+        floatingActionButton: drawerFloatingGetTicketAndEditeButton(
+            context, eventId, detailsController),
         body: Column(
           children: [
-            Expanded(
-              child:drawerEventDetails(eventId,detailsController)
-              // GetBuilder<EventDetailsController>(
-              //   init: EventDetailsController(eventId: eventId),
-              //   builder: ( controller) {
-              //     return drawerEventDetails(eventId ,controller) ;
-              //   },
+            Expanded(child: drawerEventDetails(eventId, detailsController)
+                // GetBuilder<EventDetailsController>(
+                //   init: EventDetailsController(eventId: eventId),
+                //   builder: ( controller) {
+                //     return drawerEventDetails(eventId ,controller) ;
+                //   },
 
                 // builder: (controller) {
                 //   if (controller.eventModel.value == null) {
@@ -165,18 +167,18 @@ class EventDetailsScreen extends StatelessWidget {
                 //     );
                 //   }
                 // },
-              // ),
-            ),
+                // ),
+                ),
           ],
         ),
       ),
     );
   }
 
-  Widget drawerFloatingGetTicketAndEditeButton(
-      BuildContext context, String eventId, EventDetailsController detailsController) {
+  Widget drawerFloatingGetTicketAndEditeButton(BuildContext context,
+      String eventId, EventDetailsController detailsController) {
     return Obx(
-     ()=> Row(
+      () => Row(
         mainAxisAlignment: detailsController.isAdmin.value == true
             ? MainAxisAlignment.spaceBetween
             : MainAxisAlignment.center,
@@ -279,27 +281,45 @@ class EventDetailsScreen extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsetsDirectional.only(top: 20),
-                height: 220,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: eventModel.images!
-                      .map(
-                        (img) => Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Image.network(
-                            img,
-                            fit: BoxFit.cover,
-                            width: 200,
-                            height: 200,
-                          ),
-                        ),
-                      )
-                      .toList(),
+              // Container(
+              //   padding: const EdgeInsetsDirectional.only(top: 20),
+              //   height: 220,
+              //   child: ListView(
+              //     scrollDirection: Axis.horizontal,
+              //     children: eventModel.images!
+              //         .map(
+              //           (img) => Padding(
+              //             padding: const EdgeInsets.all(2.0),
+              //             child: Image.network(
+              //               img,
+              //               fit: BoxFit.cover,
+              //               width: 200,
+              //               height: 200,
+              //             ),
+              //           ),
+              //         )
+              //         .toList(),
+              //   ),
+              // ),
+
+              /// Slider Images
+              CarouselSlider.builder(
+                options: CarouselOptions(
+                    height: 250.0,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  enlargeCenterPage: true,
+                    enlargeStrategy:CenterPageEnlargeStrategy.height,
+                  enableInfiniteScroll: false
                 ),
+                itemCount: eventModel.images?.length ?? 0,
+                itemBuilder: (BuildContext context, int index, int realIndex) {
+                  String urlImage= (eventModel.images!=null)? eventModel.images![index]:'';
+                  return urlImage!=''? drawerImageInSlider(urlImage,context):const Text('No Image');
+                },
               ),
-              //title
+
+              ///title
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 2, top: 5),
                 child: Text(
@@ -313,7 +333,8 @@ class EventDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Organizer
+
+              /// Organizer
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: ListTile(
@@ -393,6 +414,19 @@ class EventDetailsScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget drawerImageInSlider(String urlImg , BuildContext context) {
+    return Container(
+      margin: EdgeInsetsDirectional.symmetric(horizontal: 24),
+      color: Colors.grey,
+
+      child: Image.network(
+        urlImg,
+        fit: BoxFit.fill,
+        width: MediaQuery.of(context).size.width,
+      ),
     );
   }
 }
