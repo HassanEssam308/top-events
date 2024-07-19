@@ -11,8 +11,8 @@ class MyPostedEventsScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Posted Events"),
+          backgroundColor: Colors.deepPurple,
+          title: const Text("Posted Events",style: TextStyle(color: Colors.white),),
         ),
         body: Padding(
           padding: const EdgeInsetsDirectional.symmetric (vertical:  8.0),

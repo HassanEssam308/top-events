@@ -86,9 +86,9 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: CurvedNavigationBar(
           animationCurve: Curves.ease,
           // animationDuration: const Duration(seconds: 1),
-          backgroundColor: Colors.red,
-          color: Colors.purple,
-          buttonBackgroundColor: Colors.green,
+          backgroundColor: Colors.amberAccent.shade100,
+          color: Colors.deepPurple,
+          buttonBackgroundColor: Colors.white,
           height: 56,
           items:  drawerBottomNavigationListItems(homeController),
           onTap: (index) {

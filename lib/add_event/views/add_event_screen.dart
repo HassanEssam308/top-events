@@ -14,7 +14,7 @@ class AddEventScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
+
           title:  Text(eventId==null?'Add Event':'Update Event',style: const TextStyle(color: Colors.white),),
           backgroundColor: Colors.deepPurple,
         ),

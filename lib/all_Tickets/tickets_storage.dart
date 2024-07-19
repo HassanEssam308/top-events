@@ -1,5 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -13,21 +14,23 @@ class TicketsStorage extends StatelessWidget {
   TicketsStorage({super.key});
 
   final _firestore = FirebaseFirestore.instance;
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title:Text(" all tikestes",style: TextStyle(color: Colors.white),),
+          title:Text(" All Tickests",style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.deepPurple,
+          automaticallyImplyLeading: false,
         ),
         body: Column(
           children: [
             SizedBox(height: 20,),
             Expanded(
               child: StreamBuilder(
-                stream: _firestore.collection('tickets').snapshots(),
+                stream: _firestore.collection('tickets').where('userid', isEqualTo: curent()).snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator());
@@ -174,7 +177,10 @@ class TicketsStorage extends StatelessWidget {
       ),
     );
   }
-
+  String curent() {
+    final User? user = auth.currentUser;
+    final uid = user!.uid;
+    return uid;}
 
   Widget drawerCustomText(String? data,
       {double? fontSize, FontWeight? fontWeight, FontStyle? fontStyle}) {

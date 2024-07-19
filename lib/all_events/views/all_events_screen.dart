@@ -18,8 +18,8 @@ class AllEventsScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('All Events'),
+        backgroundColor: Colors.deepPurple,
+        title: const Text('All Events',style: TextStyle(color: Colors.white),),
       ),
       floatingActionButton: drawerCreateEventFloatingActionButton(),
       body: Column(

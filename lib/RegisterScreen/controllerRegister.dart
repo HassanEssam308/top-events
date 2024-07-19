@@ -59,6 +59,7 @@ class Controllerregister extends GetxController {
           'name': name.text,
           'personalId': ID.text,
           'phone': phone.text,
+          'image':"",
           'isAdmin':false
         });
         state = true;

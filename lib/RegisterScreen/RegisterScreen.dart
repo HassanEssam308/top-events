@@ -170,7 +170,7 @@ class RegisterScreen extends StatelessWidget {
                                           await controller.creatacount();
                                           await controller.storedata(context);
                                           if (controller.state) {
-                                            Get.to(() => LoginScreen(),transition: Transition.zoom,duration: Duration(seconds: 10));
+                                            Get.to(() => LoginScreen(),transition: Transition.zoom,duration: Duration(seconds: 1));
                                           }
                                         },
                                         child: Text(

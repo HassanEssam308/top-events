@@ -77,6 +77,7 @@ class TicketsGenrateQrcode extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 17),
                         alignment: Alignment.center,
                         child: TextField(
+                          keyboardType: TextInputType.number,
                           controller: controller.code,
                           decoration: InputDecoration(
                             hintText: 'Enter personal ID',
@@ -90,6 +91,7 @@ class TicketsGenrateQrcode extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 17),
                         alignment: Alignment.center,
                         child: TextField(
+                          keyboardType: TextInputType.phone,
                           controller: controller.phone,
                           decoration: InputDecoration(
                             hintText: 'Enter phone',
@@ -108,22 +110,9 @@ class TicketsGenrateQrcode extends StatelessWidget {
                         ),
                         onPressed: () async {
                           await controller.storeTicketdata(context);
-                          if (controller.formKey.currentState!.validate()) {
-                            Widget continueButton = TextButton(
-                              child: Text("Continue"),
-                              onPressed:  () {},
-                            );
-
-                            // set up the AlertDialog
-                            AlertDialog alert = AlertDialog(
-                              title: Text("AlertDialog"),
-                              content: Text("Would you like to continue learning how to use Flutter alerts?"),
-                              actions: [
-
-                                continueButton,
-                              ],
-                            );
-                            Get.to(TicketsStorage(),transition:Transition.zoom);
+                          if (controller.formKey.currentState!.validate()&&controller.stat) {
+                            controller.showAlertDialog(context);
+                            //Get.to(TicketsStorage(),transition:Transition.zoom);
 
                           } else {
                             print('Invalid');
