@@ -61,7 +61,7 @@ class TicketsStorage extends StatelessWidget {
 
                             var doc2= eventSnapshot.data!;
                             EventModel eventModel= EventModel.fromFireStoreBySnapshot(doc2);
-                            print('***********eventSnapshot=${eventModel.eventTitle}');
+                            // print('***********eventSnapshot=${eventModel.eventTitle}');
                             return Card(
                               elevation: 8,
                               shape: RoundedRectangleBorder(

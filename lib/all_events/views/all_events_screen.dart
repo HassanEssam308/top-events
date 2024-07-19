@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_events/widgets/cards_events_widget.dart';
@@ -22,35 +21,30 @@ class AllEventsScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text('All Events'),
       ),
-      floatingActionButton: drawerFloatingActionButton(),
+      floatingActionButton: drawerCreateEventFloatingActionButton(),
       body: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: CustomOutlineButton(
-                    text: "accepted", allEventsController: allEventsController),
-              ),
-              Expanded(
-                flex: 1,
-                child: CustomOutlineButton(
-                    text: "pending", allEventsController: allEventsController),
-              ),
-              Expanded(
-                flex: 1,
-                child: CustomOutlineButton(
-                    text: "rejected", allEventsController: allEventsController),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  box.write('uid', null);
-                  Get.offAllNamed('/loginScreen');
-                },
-                child: const Text('logOut'),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:allEventsController.isAdmin.value==true? Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: CustomOutlineButton(
+                      text: "accepted", allEventsController: allEventsController),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: CustomOutlineButton(
+                      text: "pending", allEventsController: allEventsController),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: CustomOutlineButton(
+                      text: "rejected", allEventsController: allEventsController),
+                ),
+              ],
+            ):Container(),
           ),
           Expanded(
             child: Obx(
@@ -68,7 +62,7 @@ class AllEventsScreen extends StatelessWidget {
   }
 
 
-  Widget drawerFloatingActionButton() {
+  Widget drawerCreateEventFloatingActionButton() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 18.0, right: 8),
       child: FloatingActionButton.extended(

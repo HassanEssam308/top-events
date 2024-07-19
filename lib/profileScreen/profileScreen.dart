@@ -150,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
                                 FirebaseAuth.instance.signOut();
                                 box.write('uid',null);
 
-                                Get.toNamed('/loginScreen');
+                                Get.offAllNamed('/loginScreen');
                               }, child: const Text('LogOut',style: TextStyle(color: Colors.white,fontSize: 16),),),
                             ],
                           )

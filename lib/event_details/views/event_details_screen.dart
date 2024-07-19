@@ -6,17 +6,16 @@ import 'package:top_events/add_event/models/event_model.dart';
 import 'package:top_events/add_event/views/add_event_screen.dart';
 import 'package:top_events/constants.dart';
 import 'package:top_events/event_details/controllers/event_details_controller.dart';
+import 'package:top_events/tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
 
 import '../../service/functions_service.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final String eventId;
 
-// final bool isAdmin=box.read('isAdmin');
-  final bool isAdmin = true;
-
    EventDetailsScreen({required this.eventId, super.key});
-    EventDetailsController detailsController =Get.put(EventDetailsController());
+
+   final EventDetailsController detailsController =Get.put(EventDetailsController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,7 +24,7 @@ class EventDetailsScreen extends StatelessWidget {
           title: const Text('Event Details'),
         ),
         floatingActionButton:
-            drawerFloatingGetTicketAndEditeButton(context, eventId),
+            drawerFloatingGetTicketAndEditeButton(context, eventId,detailsController),
         body: Column(
           children: [
             Expanded(
@@ -174,55 +173,57 @@ class EventDetailsScreen extends StatelessWidget {
   }
 
   Widget drawerFloatingGetTicketAndEditeButton(
-      BuildContext context, String eventId) {
-    return Row(
-      mainAxisAlignment: isAdmin == true
-          ? MainAxisAlignment.spaceBetween
-          : MainAxisAlignment.center,
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width / 2.6,
-          height: 55,
-          margin: const EdgeInsetsDirectional.only(start: 28),
-          child: MaterialButton(
-            elevation: 2,
-            color: Colors.purpleAccent[100],
-            onPressed: () {
-              Get.toNamed('/createTicket');
-            },
-            child: const Padding(
-              padding: EdgeInsets.all(13.0),
-              child: Text('Get Ticket'),
+      BuildContext context, String eventId, EventDetailsController detailsController) {
+    return Obx(
+     ()=> Row(
+        mainAxisAlignment: detailsController.isAdmin.value == true
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.center,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width / 2.6,
+            height: 55,
+            margin: const EdgeInsetsDirectional.only(start: 28),
+            child: MaterialButton(
+              elevation: 2,
+              color: Colors.purpleAccent[100],
+              onPressed: () {
+                Get.to(TicketsGenrateQrcode(eventid: eventId));
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(13.0),
+                child: Text('Get Ticket'),
+              ),
             ),
           ),
-        ),
-        // Edit Event
-        isAdmin == true
-            ? SizedBox(
-                width: MediaQuery.of(context).size.width / 2.6,
-                height: 55,
-                child: MaterialButton(
-                  elevation: 2,
-                  color: Colors.yellow[700],
-                  onPressed: () {
-                    Get.to(() => AddEventScreen(eventId: eventId));
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.edit),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 13.0),
-                        child: Text(
-                          'Edit Event',
+          // Edit Event
+          detailsController.isAdmin.value == true
+              ? SizedBox(
+                  width: MediaQuery.of(context).size.width / 2.6,
+                  height: 55,
+                  child: MaterialButton(
+                    elevation: 2,
+                    color: Colors.yellow[700],
+                    onPressed: () {
+                      Get.to(() => AddEventScreen(eventId: eventId));
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.edit),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 13.0),
+                          child: Text(
+                            'Edit Event',
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              )
-            : const Text(''),
-      ],
+                )
+              : const Text(''),
+        ],
+      ),
     );
   }
 
