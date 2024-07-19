@@ -8,12 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:top_events/LoginScrren/LoginScreen.dart';
 import 'package:top_events/SplachScerren/SplashScreen.dart';
 import 'package:top_events/all_events/views/all_events_screen.dart';
-import 'package:top_events/profileScreen/EditeProfileScreen.dart';
-import 'package:top_events/profileScreen/profileScreen.dart';
-import 'package:top_events/tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
-import 'package:top_events/tickets_Scann_QrCode/tickets_Scan_QrCode.dart';
-import 'all_Tickets/tickets_storage.dart';
-import 'bordingScreen/bordingScreen.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -36,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Onbording(),
+      home: SplashScreen(),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),

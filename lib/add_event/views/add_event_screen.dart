@@ -15,7 +15,7 @@ class AddEventScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Add Event',style: TextStyle(color: Colors.white),),
+          title:  Text(eventId==null?'Add Event':'Update Event',style: const TextStyle(color: Colors.white),),
           backgroundColor: Colors.deepPurple,
         ),
         body: Padding(
@@ -40,16 +40,19 @@ class AddEventScreen extends StatelessWidget {
 
                     ///DropdownButton to Event Status
                     eventId!=null?
-                        CustomDropdownButtonWidget()
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: CustomDropdownButtonWidget( addEventController: addEventController),
+                        )
                    : Text(''),
 
                     ///Date picker
                     drawerDateTimePicker(addEventController.dateController , addEventController ),
                     ///images
                     drawerImagesTextField(addEventController),
-                    eventId!=null?
-                    drawerButtonUpdateDataToFirebase(addEventController)
-                    :drawerButtonSaveDataToFirebase(addEventController)
+                    // eventId!=null?
+                    // drawerButtonUpdateDataToFirebase(addEventController):
+                    drawerButtonSaveDataToFirebase(addEventController)
 
                   ],
                 ),
@@ -63,13 +66,5 @@ class AddEventScreen extends StatelessWidget {
   }
 
 
-
-  // void _openLocationInBottomSheet(BuildContext context ) {
-  //   showModalBottomSheet(
-  //     isScrollControlled: true,
-  //       context: context,
-  //       builder: (context)=> LocationScreen(),
-  //   );
-  // }
 
 }

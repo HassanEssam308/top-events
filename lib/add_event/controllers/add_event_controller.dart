@@ -30,7 +30,7 @@ class AddEventController extends GetxController {
   List<String> imagesUrlList =[];
   List<String>  removeImagesUrlList =[];
   LatLng? currentLatLng;
-
+  EventStatus  eventStatus= EventStatus.pending ;
   late Set<Marker> markers;
   // RxList<Widget> allImages = RxList([]);
 
@@ -88,7 +88,7 @@ class AddEventController extends GetxController {
     dateController.text = FunctionsService.formatDateToInitialValueString(event.date);
     eventDate =  DateTime.fromMillisecondsSinceEpoch(event.date!.seconds * 1000);
     imagesUrlList =List.from(event.images!) ;
-
+    eventStatus =event.status;
   }
 
   setLocationToInput(EventLocation eventLocation) {
@@ -234,7 +234,7 @@ class AddEventController extends GetxController {
       description: descriptionController.text,
       ticketPrice: int.parse(priceController.text),
       images: imagesUrlList,
-      status: EventStatus.pending,
+      status:eventStatus,
       date: convertDateToTimestamp(),
       eventLocation: EventLocation(
           street: allLocation[0],
