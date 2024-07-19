@@ -86,16 +86,19 @@ import 'package:top_events/tickets_Scann_QrCode/controller_Scan_Qrcode.dart';
 
 class TicketsScannQrcode extends StatelessWidget {
   TicketsScannQrcode({super.key});
+
   final _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text("Scan qr"),
-        backgroundColor: Colors.deepPurple,),
+        appBar: AppBar(
+          title: Text("Scan qr"),
+          backgroundColor: Colors.deepPurple,
+        ),
         body: Padding(
-          padding: EdgeInsets.only(top: 40, right: 15, left: 15),
+          padding: EdgeInsets.only(top: 20, right: 15, left: 15),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,21 +110,37 @@ class TicketsScannQrcode extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
-
-                          ElevatedButton(
-                            onPressed: controller.scanQr,
-                            child: Text('Scanner'),
-                          ),
-                          SizedBox(height: 50),
-                          ElevatedButton(
-                            onPressed: controller.splitcode,
-                            child: Text('Search'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.deepPurple),
+                                onPressed: controller.scanQr,
+                                child: Text(
+                                  'Scanner',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 15),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.deepPurple),
+                                onPressed: controller.splitcode,
+                                child: Text('Search',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15)),
+                              ),
+                            ],
                           ),
                           StreamBuilder(
                             stream: _firestore
                                 .collection('tickets')
-                                .where('qrcode', isEqualTo: controller.oneid)
-                                .where('eventid', isEqualTo: controller.twoid)
+                                .where('qrcode', isEqualTo: controller.personalid)
+                                .where('eventid', isEqualTo: controller.eventid)
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
@@ -130,7 +149,8 @@ class TicketsScannQrcode extends StatelessWidget {
                                 );
                               }
 
-                              List<DocumentSnapshot> docs1 = snapshot.data!.docs;
+                              List<DocumentSnapshot> docs1 =
+                                  snapshot.data!.docs;
 
                               return Container(
                                 height: 300, // or another fixed height
@@ -139,7 +159,8 @@ class TicketsScannQrcode extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     String text = docs1[index].get('qrcode');
                                     String name = docs1[index].get('name');
-                                    String eventId = docs1[index].get('eventid');
+                                    String eventId =
+                                        docs1[index].get('eventid');
                                     String userId = docs1[index].get('userid');
 
                                     return Card(
@@ -169,4 +190,3 @@ class TicketsScannQrcode extends StatelessWidget {
     );
   }
 }
-

@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:top_events/LoginScrren/LoginScreen.dart';
 import 'package:top_events/SplachScerren/SplashScreen.dart';
 import 'package:top_events/all_events/views/all_events_screen.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {

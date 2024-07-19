@@ -109,7 +109,20 @@ class TicketsGenrateQrcode extends StatelessWidget {
                         onPressed: () async {
                           await controller.storeTicketdata(context);
                           if (controller.formKey.currentState!.validate()) {
+                            Widget continueButton = TextButton(
+                              child: Text("Continue"),
+                              onPressed:  () {},
+                            );
 
+                            // set up the AlertDialog
+                            AlertDialog alert = AlertDialog(
+                              title: Text("AlertDialog"),
+                              content: Text("Would you like to continue learning how to use Flutter alerts?"),
+                              actions: [
+
+                                continueButton,
+                              ],
+                            );
                             Get.to(TicketsStorage(),transition:Transition.zoom);
 
                           } else {

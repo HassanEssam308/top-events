@@ -9,6 +9,7 @@ import 'package:top_events/event_details/controllers/event_details_controller.da
 import 'package:top_events/tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
 
 import '../../service/functions_service.dart';
+import '../../tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final String eventId;

@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 
 class ScannerQrcodeController extends GetxController {
   var qrstr = "";
-  String oneid="";
-  String twoid="";
+  String personalid="";
+  String eventid="";
 
   Future<void> scanQr() async {
     try {
@@ -23,10 +23,10 @@ class ScannerQrcodeController extends GetxController {
   splitcode(){
     String inputString = qrstr;
     List<String> splitString = inputString.split('/');
-    oneid=splitString[0];
-    twoid=splitString[1];
-    print("****************$oneid");
-    print("****************$twoid");
+    personalid=splitString[0];
+    eventid=splitString[1];
+    print("****************$personalid");
+    print("****************$eventid");
     update();
 
   }

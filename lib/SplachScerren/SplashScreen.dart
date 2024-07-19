@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:top_events/LoginScrren/LoginScreen.dart';
 
 import '../Home/views/home_screen.dart';
+import '../bordingScreen/bordingScreen.dart';
 import '../constants.dart';
 
 
@@ -11,7 +12,9 @@ class SplashScreen extends StatelessWidget {
    SplashScreen({super.key});
    Widget drawerWidget() {
     var  userID= box.read('uid');
-     return (userID==null)?LoginScreen(): HomeScreen() ;
+      bool open=box.read("isFirstOpen")??true;
+     return (open)?Onbording():
+     (userID==null)?LoginScreen(): HomeScreen() ;
    }
 
   @override
