@@ -102,13 +102,12 @@ class Editeprofilescreen extends StatelessWidget {
                                                   children: [
                                                     CircleAvatar(
                                                       radius: 70,
-                                                      backgroundImage: controller
-                                                                  .imageFile !=
-                                                              null
-                                                          ? FileImage(controller
-                                                                  .imageFile!)
-                                                              as ImageProvider
-                                                          : NetworkImage(image),
+                                                      backgroundImage: controller.imageFile !=
+                                                          null
+                                                          ? FileImage(controller.imageFile!)
+                                                      as ImageProvider
+                                                          :image.isNotEmpty? NetworkImage(image)
+                                                          :const AssetImage('image/prson2.png'),
                                                     ),
                                                     InkWell(
                                                       onTap: () {

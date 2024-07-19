@@ -14,6 +14,7 @@ class Controllerregister extends GetxController {
   TextEditingController pass = TextEditingController();
   TextEditingController ID = TextEditingController();
   TextEditingController phone = TextEditingController();
+  String image ='';
 
   Future<void> creatacount() async {
 
@@ -59,8 +60,8 @@ class Controllerregister extends GetxController {
           'name': name.text,
           'personalId': ID.text,
           'phone': phone.text,
-          'image':"",
-          'isAdmin':false
+          'isAdmin':false,
+          'image':image
         });
         state = true;
         print('Document added successfully');

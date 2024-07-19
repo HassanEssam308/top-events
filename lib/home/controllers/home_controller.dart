@@ -16,7 +16,7 @@ class HomeController extends GetxController{
   }
   @override
   void onInit() {
-// print("onInit*******HomeController******selectedIndex =${selectedIndex.value}");
+print("onInit*******HomeController******selectedIndex =${selectedIndex.value}");
     super.onInit();
   }
 
@@ -24,6 +24,6 @@ class HomeController extends GetxController{
   void onClose() {
     super.onClose();
     selectedIndex.value=0;
-    // print("onClose*******HomeController******selectedIndex =${selectedIndex.value}");
+    print("onClose*******HomeController******selectedIndex =${selectedIndex.value}");
   }
 }

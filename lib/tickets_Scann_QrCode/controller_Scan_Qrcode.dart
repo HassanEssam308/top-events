@@ -13,15 +13,19 @@ class ScannerQrcodeController extends GetxController {
       FlutterBarcodeScanner.scanBarcode('#2A99CF', 'cancel', true, ScanMode.QR)
           .then((value) {
         qrstr = value;
+        if(value!='-1'){
+          splitcode(value);
         update();
+        }
       });
     } catch (e) {
       qrstr = 'unable to read this';
       update();
     }
   }
-  splitcode(){
-    String inputString = qrstr;
+  splitcode(String qrcodeString ){
+    print("**splitcode**************qrcodeString=$qrcodeString");
+    String inputString = qrcodeString;
     List<String> splitString = inputString.split('/');
     personalid=splitString[0];
     eventid=splitString[1];
