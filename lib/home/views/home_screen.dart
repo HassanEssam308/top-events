@@ -12,13 +12,13 @@ import '../controllers/home_controller.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final HomeController homeController = Get.put(HomeController());
+
 
 
 
   @override
   Widget build(BuildContext context) {
-
+    final HomeController homeController = Get.put(HomeController());
     return SafeArea(
       child: Scaffold(
         extendBody: true,
