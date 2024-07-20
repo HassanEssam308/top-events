@@ -88,11 +88,16 @@ class Controllerlogin extends GetxController{
       .get()
       .then(( DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     if (documentSnapshot.exists) {
-      if (kDebugMode) {
-        print('********Document data: ${documentSnapshot.data()}');
-      }
-    bool isAdmin=  documentSnapshot.data()?['isAdmin'];
+
+      bool isAdmin=  documentSnapshot.data()?['isAdmin'];
       box.write('isAdmin',isAdmin);
+      if (kDebugMode) {
+        print('**saveIsAdminUseInGetStorage***Login***Document data: ${documentSnapshot.data()}');
+        print('**saveIsAdminUseInGetStorage**Login**isAdmin: ${isAdmin}');
+
+      }
+
+
     } else {
       if (kDebugMode) {
         print('*********Document does not exist on the database');

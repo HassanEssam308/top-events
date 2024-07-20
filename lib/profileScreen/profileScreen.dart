@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:top_events/Home/controllers/home_controller.dart';
+import 'package:top_events/LoginScrren/LoginScreen.dart';
 import 'package:top_events/profileScreen/profilecontroller.dart';
 
 import '../constants.dart';
@@ -255,13 +257,11 @@ class ProfileScreen extends StatelessWidget {
                                                                         Colors
                                                                             .deepPurple),
                                                             onPressed: () {
-                                                              FirebaseAuth
-                                                                  .instance
-                                                                  .signOut();
-                                                              box.write(
-                                                                  'uid', null);
+                                                              box.write('uid', null);
                                                               box.write('isAdmin',false);
-                                                              Get.offNamed('/loginScreen');
+                                                              FirebaseAuth.instance.signOut();
+                                                              Get.offAllNamed('/loginScreen');
+                                                              Get.delete<HomeController>();
                                                             },
                                                             child: const Text(
                                                               'LogOut',

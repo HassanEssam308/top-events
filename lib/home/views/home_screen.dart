@@ -39,7 +39,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
   List<Widget> drawerBottomNavigationListItems(HomeController homeController){
-    return <Widget>[
+
+    List<Widget> itemsBottomForAdmin = <Widget>[
       ///Home
       drawerItemBottomNavigation( "Home" ,Icons.home),
       ///Events
@@ -47,14 +48,26 @@ class HomeScreen extends StatelessWidget {
       ///Tickets
       drawerItemBottomNavigation( "Tickets" ,Icons.ballot_sharp),
       ///Scanner
-      if (homeController.isAdmin.value)  drawerItemBottomNavigation( "Scanner" ,Icons.qr_code_scanner_outlined),
+      drawerItemBottomNavigation( "Scanner" ,Icons.qr_code_scanner_outlined),
+      ///Profile
+      drawerItemBottomNavigation( "Profile" ,Icons.person),
 
+    ];
+    List<Widget> itemsBottomForUser = <Widget>[
+      ///Home
+      drawerItemBottomNavigation( "Home" ,Icons.home),
+      ///Events
+      drawerItemBottomNavigation( "Events" ,Icons.event_available_sharp),
+      ///Tickets
+      drawerItemBottomNavigation( "Tickets" ,Icons.ballot_sharp),
 
       ///Profile
       drawerItemBottomNavigation( "Profile" ,Icons.person),
 
     ];
-   }
+
+    return  (homeController.isAdmin.value==true) ? itemsBottomForAdmin: itemsBottomForUser;
+  }
 
   Widget drawerItemBottomNavigation(String label ,IconData icon){
     return  SizedBox(
