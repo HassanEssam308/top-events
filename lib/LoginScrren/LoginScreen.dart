@@ -134,9 +134,10 @@ class LoginScreen extends StatelessWidget {
                                             print("***controller.state.value==${controller.state.value} *******");
                                           }
                                           if (controller.state.value == true) {
-                                            Get.offNamed('/home');
                                             controller.saveUserIdInGetStorage();
-                                            controller.saveIsAdminUseInGetStorage();
+                                           await controller.saveIsAdminUseInGetStorage();
+                                            Get.offNamed('/home');
+
                                           }
                                         },
                                         child: Text(

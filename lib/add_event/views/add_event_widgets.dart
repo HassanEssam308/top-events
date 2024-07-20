@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:top_events/add_event/controllers/add_event_controller.dart';
 
 import 'location_screen.dart';
@@ -213,7 +214,14 @@ Widget drawerImagesTextField(AddEventController addEventController) {
 //   return allImages;
 // }
 
-Widget drawerButtonSaveDataToFirebase(AddEventController addEventController) {
+Widget drawerButtonSaveDataToFirebase(AddEventController addEventController, BuildContext context) {
+  final ProgressDialog progressDialog =
+  ProgressDialog(context,type: ProgressDialogType.normal,isDismissible: false);
+  progressDialog.style(
+      message: 'loading',
+      backgroundColor: Colors.deepPurple[200]
+  );
+  progressDialog.show();
   return Container(
     padding: const EdgeInsets.all(20),
     child: ElevatedButton(
@@ -222,6 +230,7 @@ Widget drawerButtonSaveDataToFirebase(AddEventController addEventController) {
           await addEventController.uploadImagesToFireStorage();
           addEventController.insertEventToFireStore();
           addEventController.clearInputs();
+          progressDialog.hide();
         }
       },
       child:  Text(addEventController.eventId==null?'Publish Event':'Update Event'),
