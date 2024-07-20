@@ -6,16 +6,15 @@ import 'package:top_events/constants.dart';
 
 class HomeController extends GetxController {
   Rx<int> selectedIndex = Rx(0);
-  Rx<bool> isAdmin = Rx(false);
+  Rx<bool> isAdmin = Rx((box.read("isAdmin")) ?? false);
   final _auth=FirebaseAuth.instance;
 
   @override
   onReady() {
-   bool isAdminValue = (box.read("isAdmin")) ?? false;
+    isAdmin.value= (box.read("isAdmin")) ?? false;
     if (kDebugMode) {
       print("onReady****HomeController***selectedIndex =${selectedIndex.value}");
       print("onReady***HomeController***isAdmin =${isAdmin}");
-      print("onReady***HomeController***isAdminValue =${isAdminValue}");
 
     }
     super.onReady();
