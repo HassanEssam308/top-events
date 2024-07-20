@@ -11,32 +11,39 @@ class HomeController extends GetxController {
 
   @override
   onReady() {
-    isAdmin.value = (box.read("isAdmin")) ?? false;
-    print(
-        "onReady*******HomeController******selectedIndex =${selectedIndex.value}");
+   bool isAdminValue = (box.read("isAdmin")) ?? false;
+    if (kDebugMode) {
+      print("onReady****HomeController***selectedIndex =${selectedIndex.value}");
+      print("onReady***HomeController***isAdmin =${isAdmin}");
+      print("onReady***HomeController***isAdminValue =${isAdminValue}");
+
+    }
     super.onReady();
   }
 
   void changeScreen(int index) {
     selectedIndex.value = index;
+    update();
   }
 
   @override
   void onInit() {
+    saveIsAdminUseInGetStorage();
+    changeScreen(0);
     if (kDebugMode) {
-      print(
-        "onInit*******HomeController******selectedIndex =${selectedIndex.value}");
+      print("onInit*****HomeController****selectedIndex =${selectedIndex.value}");
+      print("onInit*******HomeController******isAdmin =${isAdmin}");
+
     }
     super.onInit();
-    // saveIsAdminUseInGetStorage();
   }
 
   @override
   void onClose() {
-    selectedIndex.value = 0;
+    changeScreen(0);
     if (kDebugMode) {
-      print(
-        "onClose*******HomeController******selectedIndex =${selectedIndex.value}");
+      print("onClose***HomeController***selectedIndex =${selectedIndex.value}");
+      print("onClose****HomeController***isAdmin =${isAdmin}");
     }
     super.onClose();
 
@@ -52,8 +59,10 @@ class HomeController extends GetxController {
           if (kDebugMode) {
             print('********Document data: ${documentSnapshot.data()}');
           }
-          bool isAdmin=  documentSnapshot.data()?['isAdmin'];
-          box.write('isAdmin',isAdmin);
+          bool isAdminState=  documentSnapshot.data()?['isAdmin'];
+          isAdmin.value=isAdminState ;
+          update();
+          box.write('isAdmin',isAdminState);
         } else {
           if (kDebugMode) {
             print('*********Document does not exist on the database');
@@ -65,12 +74,14 @@ class HomeController extends GetxController {
         if (kDebugMode) {
           print('saveIsAdminUseInGetStorage ********* Error =$err');
         }
+        box.write('isAdmin',false);
       });
 
     }catch(error){
       if (kDebugMode) {
         print('saveIsAdminUseInGetStorage *********catch Error =$error');
       }
+      box.write('isAdmin',false);
     }
   }
 

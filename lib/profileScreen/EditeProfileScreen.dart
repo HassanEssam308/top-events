@@ -251,7 +251,7 @@ class Editeprofilescreen extends StatelessWidget {
                                           // await controller.updatePassword(controller.pass.text);
                                           controller.storeData(context);
                                          // if (controller.stat) {
-                                            Get.to(ProfileScreen());
+                                            Get.back();
                                           //}
                                         },
                                         child: const Text(

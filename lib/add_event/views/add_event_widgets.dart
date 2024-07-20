@@ -221,12 +221,12 @@ Widget drawerButtonSaveDataToFirebase(AddEventController addEventController, Bui
       message: 'loading',
       backgroundColor: Colors.deepPurple[200]
   );
-  progressDialog.show();
   return Container(
     padding: const EdgeInsets.all(20),
     child: ElevatedButton(
       onPressed: () async {
         if (addEventController.checkInputs()) {
+          progressDialog.show();
           await addEventController.uploadImagesToFireStorage();
           addEventController.insertEventToFireStore();
           addEventController.clearInputs();
