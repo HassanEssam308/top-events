@@ -20,7 +20,6 @@ class MyPostedEventsScreen extends StatelessWidget {
               eventStream: fireStoreInstance
                   .collection('events')
                   .where('ownerId', isEqualTo: box.read('uid'))
-                  .where('status', isEqualTo: 'accepted')
                   .orderBy('date')
                   .snapshots(),isDisplayStatus: true,),
         ),

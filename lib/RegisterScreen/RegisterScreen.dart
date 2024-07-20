@@ -1,16 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:top_events/LoginScrren/LoginScreen.dart';
 
 import 'controllerRegister.dart';
 
 class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
-  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +20,10 @@ class RegisterScreen extends StatelessWidget {
         Colors.deepPurple.shade600,
       ])),
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        SizedBox(
+        const SizedBox(
           height: 100,
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 20,
           ),
@@ -54,13 +50,13 @@ class RegisterScreen extends StatelessWidget {
         ),
         Expanded(
             child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60))),
                 child: Padding(
-                    padding: EdgeInsets.only(top: 40, right: 15, left: 15),
+                    padding: const EdgeInsets.only(top: 40, right: 15, left: 15),
                     child: SingleChildScrollView(
                       child: Column(children: [
                         GetBuilder<Controllerregister>(
@@ -70,7 +66,7 @@ class RegisterScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   TextField(
@@ -79,14 +75,14 @@ class RegisterScreen extends StatelessWidget {
                                     decoration: InputDecoration(
                                       labelText: 'User Name',
                                       hintText: 'Enter your User Name',
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      prefixIcon: Icon(Icons.person),
+                                      hintStyle: const TextStyle(color: Colors.grey),
+                                      prefixIcon: const Icon(Icons.person),
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   TextField(
@@ -96,13 +92,13 @@ class RegisterScreen extends StatelessWidget {
                                         labelText: 'Email',
                                         hintText: 'Enter your Email',
                                         hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        prefixIcon: Icon(Icons.email),
+                                            const TextStyle(color: Colors.grey),
+                                        prefixIcon: const Icon(Icons.email),
                                         border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   TextField(
@@ -113,55 +109,55 @@ class RegisterScreen extends StatelessWidget {
                                         labelText: 'Password',
                                         hintText: 'Enter your password',
                                         hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        prefixIcon: Icon(Icons.password),
+                                            const TextStyle(color: Colors.grey),
+                                        prefixIcon: const Icon(Icons.password),
                                         suffixIcon: IconButton(
                                           onPressed: controller.seenpassword,
                                           icon: controller.isscure.value
-                                              ? Icon(Icons.visibility)
-                                              : Icon(Icons.visibility_off),
+                                              ? const Icon(Icons.visibility)
+                                              : const Icon(Icons.visibility_off),
                                           color: Colors.grey,
                                         ),
                                         border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   TextField(
                                     controller: controller.ID,
-                                    keyboardType: TextInputType.text,
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                         labelText: 'Personal ID',
                                         hintText: 'Enter your Personal ID',
                                         hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        prefixIcon: Icon(Icons.credit_card),
+                                            const TextStyle(color: Colors.grey),
+                                        prefixIcon: const Icon(Icons.credit_card),
                                         border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   TextField(
                                     controller: controller.phone,
-                                    keyboardType: TextInputType.text,
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                         labelText: 'Phone',
                                         hintText: 'Enter your phone',
                                         hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        prefixIcon: Icon(Icons.phone),
+                                            const TextStyle(color: Colors.grey),
+                                        prefixIcon: const Icon(Icons.phone),
                                         border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10))),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 30,
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width: 300,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
@@ -188,12 +184,12 @@ class RegisterScreen extends StatelessWidget {
                                     child: Center(
                                       child: Row(
                                         children: [
-                                          Text("Already have Account ?"),
+                                          const Text("Already have Account ?"),
                                           InkWell(
                                             onTap: () {
                                               Get.to(LoginScreen(),transition: Transition.fade,duration: Duration(seconds: 1));
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               "Login",
                                               style: TextStyle(
                                                   fontSize: 12,
