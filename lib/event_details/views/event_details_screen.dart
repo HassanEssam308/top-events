@@ -25,7 +25,8 @@ class EventDetailsScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Event Details'),
+          title: const Text('Event Details',style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.deepPurple,
         ),
         floatingActionButton: drawerFloatingGetTicketAndEditeButton(
             context, eventId, detailsController),
@@ -189,7 +190,7 @@ class EventDetailsScreen extends StatelessWidget {
             margin: const EdgeInsetsDirectional.only(start: 28),
             child: MaterialButton(
               elevation: 2,
-              color: Colors.purpleAccent[100],
+              color: Colors.deepPurple,
               onPressed: () {
                 Get.to(TicketsGenrateQrcode(eventid: eventId));
               },

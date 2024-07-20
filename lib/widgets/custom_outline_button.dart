@@ -24,17 +24,17 @@ final AllEventsController allEventsController;
             },
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.zero,
-                backgroundColor:(allEventsController.viewState.value == text) ? Colors.black  : Colors.grey ,
+                backgroundColor:(allEventsController.viewState.value == text) ? Colors.deepPurple  : Colors.grey ,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)
                 ),
                 side: BorderSide(
-                    color:  (allEventsController.viewState.value == text) ? Colors.green  : Colors.black),
+                    color:  (allEventsController.viewState.value == text) ? Colors.white : Colors.black),
               ),
               child: Text(
                 text,
                 style: TextStyle(
-                  color: (allEventsController.viewState.value == text) ? Colors.green  : Colors.black,
+                  color: (allEventsController.viewState.value == text) ? Colors.white  : Colors.black,
                 ),
               ),
 

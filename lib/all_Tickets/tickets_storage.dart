@@ -114,13 +114,15 @@ class TicketsStorage extends StatelessWidget {
                                               ),
                                               ListTile(
                                                 title: drawerCustomText(
-                                                 '${eventModel.eventLocation?.street},'
-                                                     '${eventModel.eventLocation
-                                                     ?.governorate},${eventModel
-                                                     .eventLocation?.country}',
+                                                  '${eventModel.eventLocation?.street}, '
+                                                      '${eventModel.eventLocation?.governorate}, '
+                                                      '${eventModel.eventLocation?.country}',
 
-                                               ), titleTextStyle: TextStyle(color: Colors.deepPurple,fontSize: 15),
-                                                leading: const Icon(Icons.location_city_outlined,color: Colors.white,),
+                                                ),
+                                                leading: const Icon(
+                                                  Icons.location_city_outlined,
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                               SizedBox(height: 15,),
 
@@ -187,7 +189,7 @@ class TicketsStorage extends StatelessWidget {
     return Text(
       data ?? '',
       style: const TextStyle(
-        color: Colors.black87,
+        color: Colors.white,
       ),
     );
   }

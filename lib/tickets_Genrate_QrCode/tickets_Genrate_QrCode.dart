@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:get/get.dart';
 import 'package:top_events/tickets_Genrate_QrCode/controller_Genrate_Qrcode.dart';
-import 'package:top_events/tickets_paid/tickets_paid_Screen.dart';
-import '../all_Tickets/tickets_storage.dart';
+
 
 
 class TicketsGenrateQrcode extends StatelessWidget {
