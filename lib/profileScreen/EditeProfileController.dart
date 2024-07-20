@@ -75,7 +75,7 @@ class Editeprofilecontroller extends GetxController {
         'personalId': ID.text,
         'image': image,
         'phone': phone.text
-      });
+      },SetOptions(merge: true));
 
       update();
       print('Document added successfully');

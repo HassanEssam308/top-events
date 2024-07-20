@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,16 +23,22 @@ class Controllerregister extends GetxController {
         name.text.isEmpty ||
         ID.text.isEmpty ||
         phone.text.isEmpty) {
-      print("please enter data");
+      if (kDebugMode) {
+        print("please enter data");
+      }
     } else {
       try {
         await auth.createUserWithEmailAndPassword(
             email: Email.text, password: pass.text);
         state = true;
-        print(
+        if (kDebugMode) {
+          print(
             "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        }
       } catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     }
   }
@@ -46,7 +52,7 @@ class Controllerregister extends GetxController {
         ID.text.isEmpty ||
         phone.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please enter all the data"),
           duration: Duration(seconds: 2),
         ),
@@ -54,7 +60,7 @@ class Controllerregister extends GetxController {
     }
     else if(ID.text.length != 14 && phone.text.length != 12 ){
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Enter right Personal Id or phone"),
           duration: Duration(seconds: 2),
         ),
@@ -73,11 +79,17 @@ class Controllerregister extends GetxController {
           'image':image
         });
         state = true;
-        print('Document added successfully');
+        if (kDebugMode) {
+          print('Document added successfully');
+        }
       } on FirebaseException catch (e) {
-        print('Error: $e');
+        if (kDebugMode) {
+          print('Error: $e');
+        }
       } catch (e) {
-        print('Error: $e');
+        if (kDebugMode) {
+          print('Error: $e');
+        }
       }
     }
   }
