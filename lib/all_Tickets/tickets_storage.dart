@@ -118,29 +118,23 @@ class TicketsStorage extends StatelessWidget {
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.white,),
-                                                ),
-                                                SizedBox(
-                                                  height: 15,
-                                                ),
-                                                ListTile(
-                                                  title: drawerCustomText(
-                                                    '${eventModel.eventLocation
-                                                        ?.street},'
-                                                        '${eventModel
-                                                        .eventLocation
-                                                        ?.governorate},${eventModel
-                                                        .eventLocation
-                                                        ?.country}',
+                                              ),
+                                              SizedBox(
+                                                height: 15,
+                                              ),
+                                              ListTile(
+                                                title: drawerCustomText(
+                                                  '${eventModel.eventLocation?.street}, '
+                                                      '${eventModel.eventLocation?.governorate}, '
+                                                      '${eventModel.eventLocation?.country}',
 
-                                                  ),
-                                                  titleTextStyle: TextStyle(
-                                                      color: Colors.deepPurple,
-                                                      fontSize: 15),
-                                                  leading: const Icon(Icons
-                                                      .location_city_outlined,
-                                                    color: Colors.white,),
                                                 ),
-                                                SizedBox(height: 15,),
+                                                leading: const Icon(
+                                                  Icons.location_city_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              SizedBox(height: 15,),
 
                                                 ListTile(
 
@@ -222,7 +216,7 @@ class TicketsStorage extends StatelessWidget {
     return Text(
       data ?? '',
       style: const TextStyle(
-        color: Colors.black87,
+        color: Colors.white,
       ),
     );
   }

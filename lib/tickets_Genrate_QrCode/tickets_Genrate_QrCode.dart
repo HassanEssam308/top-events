@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:top_events/tickets_Genrate_QrCode/controller_Genrate_Qrcode.dart';
 
 
+
 class TicketsGenrateQrcode extends StatelessWidget {
   String eventid;
    TicketsGenrateQrcode({super.key,required this.eventid});

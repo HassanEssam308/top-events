@@ -72,7 +72,7 @@ class AllEventsScreen extends StatelessWidget {
         tooltip: 'Create Event',
         label: const Text('Create Event'),
         splashColor: Colors.black,
-        backgroundColor: Colors.purpleAccent[100],
+        backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
         elevation: 5,
       ),

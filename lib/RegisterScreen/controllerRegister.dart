@@ -51,7 +51,16 @@ class Controllerregister extends GetxController {
           duration: Duration(seconds: 2),
         ),
       );
-    } else {
+    }
+    else if(ID.text.length != 14 && phone.text.length != 12 ){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Enter right Personal Id or phone"),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+    else {
       try {
         final User? user = auth.currentUser;
         final uid = user!.uid;

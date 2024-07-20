@@ -55,7 +55,7 @@ class EventDetailsScreen extends StatelessWidget {
             margin: const EdgeInsetsDirectional.only(start: 28),
             child: MaterialButton(
               elevation: 2,
-              color: Colors.purpleAccent[100],
+              color: Colors.deepPurple,
               onPressed: () {
                 Get.to(TicketsGenrateQrcode(eventid: eventId));
               },
@@ -147,26 +147,7 @@ class EventDetailsScreen extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              // Container(
-              //   padding: const EdgeInsetsDirectional.only(top: 20),
-              //   height: 220,
-              //   child: ListView(
-              //     scrollDirection: Axis.horizontal,
-              //     children: eventModel.images!
-              //         .map(
-              //           (img) => Padding(
-              //             padding: const EdgeInsets.all(2.0),
-              //             child: Image.network(
-              //               img,
-              //               fit: BoxFit.cover,
-              //               width: 200,
-              //               height: 200,
-              //             ),
-              //           ),
-              //         )
-              //         .toList(),
-              //   ),
-              // ),
+
 
               /// Slider Images
               CarouselSlider.builder(
