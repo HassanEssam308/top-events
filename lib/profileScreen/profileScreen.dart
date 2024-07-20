@@ -112,8 +112,12 @@ class ProfileScreen extends StatelessWidget {
                                                               children: [
                                                                 CircleAvatar(
                                                                   radius: 70,
-                                                                  backgroundImage:image.isNotEmpty? NetworkImage(image)
-                                                                      :const AssetImage('image/prson2.png'),
+                                                                  backgroundImage: image
+                                                                          .isNotEmpty
+                                                                      ? NetworkImage(
+                                                                          image)
+                                                                      : const AssetImage(
+                                                                          'image/prson2.png'),
                                                                 ),
                                                                 SizedBox(
                                                                   height: 50,
@@ -216,57 +220,59 @@ class ProfileScreen extends StatelessWidget {
                                                           );
                                                         }),
                                                     SizedBox(height: 70),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .deepPurple),
-                                                          onPressed: () {
-                                                            Get.to(
-                                                                Editeprofilescreen());
-                                                          },
-                                                          child: Text(
-                                                            "Edite data",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 16),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(bottom: 18.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          ElevatedButton(
+                                                            style: ElevatedButton
+                                                                .styleFrom(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .deepPurple),
+                                                            onPressed: () {
+                                                              Get.to(
+                                                                  Editeprofilescreen());
+                                                            },
+                                                            child: Text(
+                                                              "Edite data",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 16),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 20,
-                                                        ),
-                                                        ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .deepPurple),
-                                                          onPressed: () {
-                                                            FirebaseAuth
-                                                                .instance
-                                                                .signOut();
-                                                            box.write(
-                                                                'uid', null);
-
-                                                            Get.offAllNamed(
-                                                                '/loginScreen');
-                                                          },
-                                                          child: const Text(
-                                                            'LogOut',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 16),
+                                                          SizedBox(
+                                                            width: 20,
                                                           ),
-                                                        ),
-                                                      ],
+                                                          ElevatedButton(
+                                                            style: ElevatedButton
+                                                                .styleFrom(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .deepPurple),
+                                                            onPressed: () {
+                                                              FirebaseAuth
+                                                                  .instance
+                                                                  .signOut();
+                                                              box.write(
+                                                                  'uid', null);
+                                                              box.write('isAdmin',false);
+                                                              Get.offNamed('/loginScreen');
+                                                            },
+                                                            child: const Text(
+                                                              'LogOut',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     )
                                                   ],
                                                 ),

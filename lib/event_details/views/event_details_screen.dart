@@ -25,150 +25,15 @@ class EventDetailsScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Event Details',style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.deepPurple,
+          title: const Text('Event Details',style: TextStyle(color: Colors.white)),
         ),
         floatingActionButton: drawerFloatingGetTicketAndEditeButton(
             context, eventId, detailsController),
         body: Column(
           children: [
             Expanded(child: drawerEventDetails(eventId, detailsController)
-                // GetBuilder<EventDetailsController>(
-                //   init: EventDetailsController(eventId: eventId),
-                //   builder: ( controller) {
-                //     return drawerEventDetails(eventId ,controller) ;
-                //   },
 
-                // builder: (controller) {
-                //   if (controller.eventModel.value == null) {
-                //     return Center(
-                //         heightFactor: MediaQuery.of(context).size.height,
-                //         child: const CircularProgressIndicator());
-                //   } else {
-                //     EventModel eventModel = controller.eventModel.value!;
-                //     return SingleChildScrollView(
-                //       child: Column(
-                //         children: [
-                //           Container(
-                //             padding: const EdgeInsetsDirectional.only(top: 20),
-                //             height: 220,
-                //             child: ListView(
-                //               scrollDirection: Axis.horizontal,
-                //               children: eventModel.images!
-                //                   .map(
-                //                     (img) => Padding(
-                //                       padding: const EdgeInsets.all(2.0),
-                //                       child: Image.network(
-                //                         img,
-                //                         fit: BoxFit.cover,
-                //                         width: 200,
-                //                         height: 200,
-                //                       ),
-                //                     ),
-                //                   )
-                //                   .toList(),
-                //             ),
-                //           ),
-                //           //title
-                //           Padding(
-                //             padding: const EdgeInsetsDirectional.only(
-                //                 start: 2, top: 5),
-                //             child: Text(
-                //               eventModel.eventTitle ?? "",
-                //               textAlign: TextAlign.center,
-                //               softWrap: true,
-                //               overflow: TextOverflow.visible,
-                //               style: const TextStyle(
-                //                 fontSize: 22,
-                //                 fontWeight: FontWeight.bold,
-                //               ),
-                //             ),
-                //           ),
-                //           // Organizer
-                //           Padding(
-                //             padding: const EdgeInsets.all(5),
-                //             child: ListTile(
-                //               title: textHeading('Organizer '),
-                //               subtitle: drawerCustomText(
-                //                 eventModel.ownerName ?? "",
-                //               ),
-                //             ),
-                //           ),
-                //           // Ticket price
-                //           Padding(
-                //             padding: const EdgeInsets.all(4),
-                //             child: ListTile(
-                //               title: textHeading('Ticket price '),
-                //               subtitle: drawerCustomText(
-                //                 '${eventModel.ticketPrice}\$',
-                //               ),
-                //               leading: const Icon(Icons.price_change_outlined),
-                //             ),
-                //           ),
-                //           // date
-                //           Padding(
-                //             padding: const EdgeInsets.all(4),
-                //             child: ListTile(
-                //               title: textHeading('Date and Time '),
-                //               subtitle: drawerCustomText(
-                //                 FunctionsService.formatDateFromTimestamp(
-                //                     eventModel.date),
-                //               ),
-                //               leading: const Icon(Icons.date_range),
-                //             ),
-                //           ),
-                //           // Location
-                //           Padding(
-                //             padding: const EdgeInsets.all(5),
-                //             child: ListTile(
-                //               title: textHeading('Location'),
-                //               subtitle: Column(
-                //                 mainAxisAlignment: MainAxisAlignment.start,
-                //                 children: [
-                //                   drawerCustomText(
-                //                     '${eventModel.eventLocation?.street},'
-                //                     '${eventModel.eventLocation?.governorate},${eventModel.eventLocation?.country}',
-                //                   ),
-                //                   // Open Map
-                //                   (eventModel.eventLocation?.latLng != null)
-                //                       ? TextButton(
-                //                           iconAlignment: IconAlignment.start,
-                //                           onPressed: () {
-                //                             controller.goToMap(LatLng(
-                //                                 eventModel.eventLocation!
-                //                                     .latLng!.latitude,
-                //                                 eventModel.eventLocation!
-                //                                     .latLng!.longitude));
-                //                           },
-                //                           child: const Text(
-                //                             'Open Map \u{2192}',
-                //                             style:
-                //                                 TextStyle(color: Colors.blue),
-                //                           ),
-                //                         )
-                //                       : const Text('')
-                //                 ],
-                //               ),
-                //               leading: const Icon(Icons.location_city_outlined),
-                //             ),
-                //           ),
-                //           // About this event
-                //           Padding(
-                //             padding: const EdgeInsetsDirectional.only(
-                //                 start: 5, end: 5, top: 5, bottom: 80),
-                //             child: ListTile(
-                //               title: textHeading('About this event '),
-                //               subtitle: drawerCustomText(
-                //                 eventModel.description ?? '',
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     );
-                //   }
-                // },
-                // ),
                 ),
           ],
         ),
@@ -282,26 +147,7 @@ class EventDetailsScreen extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              // Container(
-              //   padding: const EdgeInsetsDirectional.only(top: 20),
-              //   height: 220,
-              //   child: ListView(
-              //     scrollDirection: Axis.horizontal,
-              //     children: eventModel.images!
-              //         .map(
-              //           (img) => Padding(
-              //             padding: const EdgeInsets.all(2.0),
-              //             child: Image.network(
-              //               img,
-              //               fit: BoxFit.cover,
-              //               width: 200,
-              //               height: 200,
-              //             ),
-              //           ),
-              //         )
-              //         .toList(),
-              //   ),
-              // ),
+
 
               /// Slider Images
               CarouselSlider.builder(

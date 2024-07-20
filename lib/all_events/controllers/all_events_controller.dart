@@ -7,9 +7,9 @@ class AllEventsController extends GetxController{
   Rx<bool>  isAdmin=Rx(false);
 
    @override
-  onReady(){
-     super.onReady();
+  onInit(){
      isAdmin.value=(box.read("isAdmin"))??false;
+     super.onInit();
    }
 
   changState(String state){

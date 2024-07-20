@@ -38,6 +38,7 @@ class Controllerlogin extends GetxController{
         refresh();
       } catch (e) {
         if (e is FirebaseAuthException) {
+          Get.snackbar('Login Error',e.code );
           switch (e.code) {
             case "invalid-email":
               print("invalid-email");
@@ -74,17 +75,15 @@ class Controllerlogin extends GetxController{
   }
 
   void saveUserIdInGetStorage() {
-    if (kDebugMode) {
-      print('saveUserIdInGetStorage box.read************ =${box.read('uid')}');
-    }
 
     if(_auth.currentUser!=null){
       box.write('uid',_auth.currentUser?.uid);
     }
   }
 
-  void saveIsAdminUseInGetStorage() {
-  fireStoreInstance.collection('users')
+ Future<void>saveIsAdminUseInGetStorage() async {
+    try{
+  await fireStoreInstance.collection('users')
     .doc(_auth.currentUser?.uid)
       .get()
       .then(( DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
@@ -107,7 +106,11 @@ class Controllerlogin extends GetxController{
     }
   });
 
-
+    }catch(error){
+      if (kDebugMode) {
+        print('saveIsAdminUseInGetStorage *********catch Error =$error');
+      }
+    }
   }
 
 
