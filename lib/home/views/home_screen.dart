@@ -18,74 +18,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final screens = [
-    //   AllEventsScreen(),
-    //   const MyPostedEventsScreen(),
-    //   TicketsStorage(),
-    //   homeController.isAdmin.value==true? TicketsScannQrcode():Container(),
-    //   ProfileScreen(),
-    // ];
-    // final icons = <Widget>[
-    //   ///Home
-    //   const SizedBox(
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       mainAxisAlignment:MainAxisAlignment.end,
-    //       children: [Icon(Icons.home, size: 22), Text("Home",style: TextStyle(
-    //         fontSize: 10,
-    //       ),),],
-    //     ),
-    //   ),
-    //   ///Events
-    //
-    //   const SizedBox(
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       mainAxisAlignment:MainAxisAlignment.end,
-    //       children: [Icon(Icons.event_available_sharp, size: 22), Text("Events",style: TextStyle(
-    //         fontSize: 10,
-    //       ))],
-    //     ),
-    //   ),
-    //   ///Tickets
-    //   const SizedBox(
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       mainAxisAlignment:MainAxisAlignment.end,
-    //       children: [Icon(Icons.ballot_sharp, size: 22), Text("Tickets",style: TextStyle(
-    //         fontSize: 10,
-    //       ))],
-    //     ),
-    //   ),
-    //   ///Scanner
-    //   homeController.isAdmin.value==true?  const SizedBox(
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       mainAxisAlignment:MainAxisAlignment.end,
-    //       children: [Icon(Icons.qr_code_scanner_outlined, size: 22), Text("Scanner",style: TextStyle(
-    //         fontSize: 10,
-    //       ))],
-    //     ),
-    //   ):Container(),
-    //   ///Profile
-    //   const SizedBox(
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       mainAxisAlignment:MainAxisAlignment.end,
-    //       children: [Icon(Icons.person, size: 20), Text("Profile",style: TextStyle(
-    //         fontSize: 8,
-    //       ))],
-    //     ),
-    //   ),
-    // ];
+
     return SafeArea(
       child: Scaffold(
         extendBody: true,
-        // body: Obx(() => screens[homeController.selectedIndex.value]),
         body: drawerScreens(homeController),
         bottomNavigationBar: CurvedNavigationBar(
           animationCurve: Curves.ease,
-          // animationDuration: const Duration(seconds: 1),
+          index:homeController.selectedIndex.value ,
           backgroundColor: Colors.amberAccent.shade100,
           color: Colors.deepPurple,
           buttonBackgroundColor: Colors.white,
@@ -107,10 +47,6 @@ class HomeScreen extends StatelessWidget {
       ///Tickets
       drawerItemBottomNavigation( "Tickets" ,Icons.ballot_sharp),
       ///Scanner
-    //   Obx(
-    // ()=> homeController.isAdmin.value==true? drawerItemBottomNavigation( "Home" ,Icons.home)
-    //     :Container(),
-    //   ),
       if (homeController.isAdmin.value)  drawerItemBottomNavigation( "Scanner" ,Icons.qr_code_scanner_outlined),
 
 

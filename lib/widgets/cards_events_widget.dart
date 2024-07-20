@@ -141,7 +141,7 @@ class CardsEventsWidget extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
+            const Text(
               "You have not posted any event",
               style: TextStyle(fontSize: 18),
             ),
