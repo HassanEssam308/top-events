@@ -2,14 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import 'package:top_events/Home/views/home_screen.dart';
-import 'package:top_events/profileScreen/profileScreen.dart';
-import 'package:top_events/profileScreen/profilecontroller.dart';
 import 'EditeProfileController.dart';
 
-class Editeprofilescreen extends StatelessWidget {
-  Editeprofilescreen({super.key});
+class EditeProfileScreen extends StatelessWidget {
+  EditeProfileScreen({super.key});
 
   final auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
@@ -75,26 +71,37 @@ class Editeprofilescreen extends StatelessWidget {
                                           }
 
                                           var userDocument = snapshot.data!;
-                                          String name =
-                                              userDocument.get('name') ??
+                                          // String name =
+                                          //     userDocument.get('name') ??
+                                          //         'No name';
+                                          // String email =
+                                          //     userDocument.get('email') ??
+                                          //         'No event ID';
+                                          // String personalId =
+                                          //     userDocument.get('personalId') ??
+                                          //         'No event ID';
+                                          // String phone =
+                                          //     userDocument.get('phone') ??
+                                          //         'No event ID';
+                                          // String image =
+                                          //     userDocument.get('image') ??
+                                          //          'No event ID';
+                                          controller.name.text = userDocument.get('name') ??
                                                   'No name';
-                                          String email =
-                                              userDocument.get('email') ??
-                                                  'No event ID';
-                                          String personalId =
-                                              userDocument.get('personalId') ??
-                                                  'No event ID';
-                                          String phone =
-                                              userDocument.get('phone') ??
-                                                  'No event ID';
+                                          controller.Email.text = userDocument.get('email') ??
+                                                  'No email';
+                                          controller.ID.text = userDocument.get('personalId') ??
+                                                  'No personal ID';
+                                          controller.phone.text= userDocument.get('phone') ??
+                                                  'No phone';
                                           String image =
                                               userDocument.get('image') ??
-                                                  'No event ID';
+                                                  'No image';
                                           return Padding(
                                             padding: const EdgeInsets.all(10),
                                             child: Column(
                                               children: [
-                                                SizedBox(height: 10),
+                                                const SizedBox(height: 10),
                                                 Stack(
                                                   alignment:
                                                       AlignmentDirectional
@@ -146,7 +153,8 @@ class Editeprofilescreen extends StatelessWidget {
                                                   keyboardType:
                                                       TextInputType.text,
                                                   decoration: InputDecoration(
-                                                      hintText: 'Enter name',
+                                                      hintText:'name',
+                                                      labelText: 'Enter name' ,
                                                       hintStyle: TextStyle(
                                                           color: Colors.grey),
                                                       prefixIcon:
@@ -166,7 +174,8 @@ class Editeprofilescreen extends StatelessWidget {
                                                   keyboardType: TextInputType
                                                       .emailAddress,
                                                   decoration: InputDecoration(
-                                                      hintText: 'Enter Email',
+                                                      hintText: 'Email',
+                                                      labelText: ' Enter email',
                                                       hintStyle: TextStyle(
                                                           color: Colors.grey),
                                                       prefixIcon:
@@ -186,7 +195,7 @@ class Editeprofilescreen extends StatelessWidget {
                                                   keyboardType: TextInputType
                                                       .visiblePassword,
                                                   decoration: InputDecoration(
-                                                      hintText: '***********',
+                                                      hintText: '*******',
                                                       hintStyle: TextStyle(
                                                           color: Colors.grey),
                                                       prefixIcon:
@@ -207,6 +216,7 @@ class Editeprofilescreen extends StatelessWidget {
                                                       TextInputType.number,
                                                   decoration: InputDecoration(
                                                       hintText: 'personalId',
+                                                      labelText: ' Enter personalId',
                                                       prefixIcon: Icon(Icons
                                                           .credit_card_outlined),
                                                       border:
@@ -222,9 +232,10 @@ class Editeprofilescreen extends StatelessWidget {
                                                 TextField(
                                                   controller: controller.phone,
                                                   keyboardType:
-                                                      TextInputType.phone,
+                                                      TextInputType.number,
                                                   decoration: InputDecoration(
-                                                      hintText: 'Enter Phone',
+                                                      hintText: 'phone',
+                                                      labelText: ' Enter phone',
                                                       hintStyle: TextStyle(
                                                           color: Colors.grey),
                                                       prefixIcon:

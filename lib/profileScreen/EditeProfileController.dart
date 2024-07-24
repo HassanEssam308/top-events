@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; // Import Material package for ScaffoldMessenger
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 
 class Editeprofilecontroller extends GetxController {
   File? imageFile;
@@ -24,7 +24,7 @@ class Editeprofilecontroller extends GetxController {
 
   Future<void> pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
+    if (pickedFile!= null) {
       imageFile = File(pickedFile.path);
       update();
     }
@@ -69,13 +69,13 @@ class Editeprofilecontroller extends GetxController {
       final User? user = auth.currentUser;
       final uid = user!.uid;
 
-      await FirebaseFirestore.instance.collection("users").doc(uid).set({
-        'email': Email.text,
-        'name': name.text,
-        'personalId': ID.text,
-        'image': image,
-        'phone': phone.text
-      },SetOptions(merge: true));
+        await FirebaseFirestore.instance.collection("users").doc(uid).set({
+          'email': Email.text,
+          'name': name.text,
+          'personalId': ID.text,
+          'image': image,
+          'phone': phone.text
+        }, SetOptions(merge: true));
 
       update();
       print('Document added successfully');
@@ -93,23 +93,28 @@ class Editeprofilecontroller extends GetxController {
     return uid;
   }
 
-  Future<void> updateEmail(String newEmail, String password) async {
-    print("*************fun update email: $newEmail");
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
+    Future<void> updateEmail(String newEmail, String password) async {
+      print("*************fun update email: $newEmail");
+      try {
+        User? user = FirebaseAuth.instance.currentUser;
 
-      if (user == null) {
-        print("No user currently signed in.");
-        return;
+        if (user == null) {
+          print("No user currently signed in.");
+          return;
+        }
+        // Update email
+        await user.updateEmail(newEmail);
+        await user.sendEmailVerification();
+        update();
+
+        if (kDebugMode) {
+          print("Email updated successfully");
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print("Failed to update email: $e");
+        }
       }
-      // Update email
-      await user.updateEmail(newEmail);
-      await user.sendEmailVerification();
-      update();
-
-      print("Email updated successfully");
-    } catch (e) {
-      print("Failed to update email: $e");
     }
   }
-}
+

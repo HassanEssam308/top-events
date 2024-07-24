@@ -110,6 +110,12 @@ class LoginScreen extends StatelessWidget {
                                     child: InkWell(
                                       onTap: () async {
                                         await controller.resetpassword();
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                                content: Text("Go To Gmail"),
+                                                duration: Duration(seconds: 2)
+                                            )
+                                        );
                                       },
                                       child: Text(
                                         "Forget your password?",
