@@ -70,6 +70,10 @@ class Controllerregister extends GetxController {
       try {
         final User? user = auth.currentUser;
         final uid = user!.uid;
+
+        if (kDebugMode) {
+          print('create user*********=$uid');
+        }
         await FirebaseFirestore.instance.collection("users").doc(uid).set({
           'email': Email.text,
           'name': name.text,

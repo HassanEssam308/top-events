@@ -11,7 +11,7 @@ class HomeController extends GetxController {
 
   @override
   onReady() {
-    isAdmin.value= (box.read("isAdmin")) ?? false;
+    // isAdmin.value= (box.read("isAdmin")) ?? false;
     if (kDebugMode) {
       print("onReady****HomeController***selectedIndex =${selectedIndex.value}");
       print("onReady***HomeController***isAdmin =${isAdmin}");
