@@ -7,7 +7,8 @@ import '../../constants.dart';
 import '../controllers/all_events_controller.dart';
 
 class AllEventsScreen extends StatelessWidget {
-  AllEventsScreen({super.key});
+ final bool isAdmin;
+  AllEventsScreen({required this.isAdmin, super.key});
 
   final AllEventsController allEventsController =
       Get.put(AllEventsController());
@@ -26,7 +27,7 @@ class AllEventsScreen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child:allEventsController.isAdmin.value==true? Row(
+            child:isAdmin==true? Row(
               children: [
                 Expanded(
                   flex: 1,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:top_events/Home/controllers/home_controller.dart';
 import 'package:top_events/LoginScrren/LoginScreen.dart';
+import 'package:top_events/all_events/controllers/all_events_controller.dart';
 import 'package:top_events/profileScreen/profilecontroller.dart';
 
 import '../constants.dart';
@@ -237,9 +238,9 @@ class ProfileScreen extends StatelessWidget {
                                                                             .deepPurple),
                                                             onPressed: () {
                                                               Get.to(
-                                                                  Editeprofilescreen());
+                                                                  EditeProfileScreen());
                                                             },
-                                                            child: Text(
+                                                            child: const Text(
                                                               "Edite data",
                                                               style: TextStyle(
                                                                   color: Colors
@@ -256,12 +257,13 @@ class ProfileScreen extends StatelessWidget {
                                                                     backgroundColor:
                                                                         Colors
                                                                             .deepPurple),
-                                                            onPressed: () {
+                                                            onPressed: () async {
                                                               box.write('uid', null);
-                                                              box.write('isAdmin',false);
+                                                             await box.write('isAdmin',false);
                                                               FirebaseAuth.instance.signOut();
                                                               Get.offAllNamed('/loginScreen');
                                                               Get.delete<HomeController>();
+                                                              Get.delete<AllEventsController>();
                                                             },
                                                             child: const Text(
                                                               'LogOut',

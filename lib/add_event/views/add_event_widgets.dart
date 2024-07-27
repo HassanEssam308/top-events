@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
@@ -115,7 +116,7 @@ Widget drawerImagesTextField(AddEventController addEventController) {
           ),
 
         ///  imagesUrlList
-        if (addEventController.imagesUrlList.length>0)
+        if (addEventController.imagesUrlList.isNotEmpty)
           SizedBox(
             width: double.infinity,
             height: 150,
@@ -218,8 +219,8 @@ Widget drawerButtonSaveDataToFirebase(AddEventController addEventController, Bui
   final ProgressDialog progressDialog =
   ProgressDialog(context,type: ProgressDialogType.normal,isDismissible: false);
   progressDialog.style(
-      message: 'loading',
-      backgroundColor: Colors.deepPurple[200]
+      message: 'Uploading Data',
+      backgroundColor: Colors.deepPurple[300]
   );
   return Container(
     padding: const EdgeInsets.all(20),
@@ -227,10 +228,19 @@ Widget drawerButtonSaveDataToFirebase(AddEventController addEventController, Bui
       onPressed: () async {
         if (addEventController.checkInputs()) {
           progressDialog.show();
-          await addEventController.uploadImagesToFireStorage();
-          addEventController.insertEventToFireStore();
-          addEventController.clearInputs();
-          progressDialog.hide();
+            await addEventController.uploadImagesToFireStorage();
+           await addEventController.insertEventToFireStore()
+            .then((value){
+             addEventController.clearInputs();
+             if (context.mounted) Navigator.of(context).pop();
+
+           }).catchError((onError){
+             if (kDebugMode) {
+               print('**onError==${onError.toString()}');
+             }
+            if (context.mounted) progressDialog.hide();
+          });
+
         }
       },
       child:  Text(addEventController.eventId==null?'Publish Event':'Update Event'),
@@ -238,22 +248,24 @@ Widget drawerButtonSaveDataToFirebase(AddEventController addEventController, Bui
   );
 }
 
-// Widget drawerButtonUpdateDataToFirebase(AddEventController addEventController) {
-//   return Container(
-//     padding: const EdgeInsets.all(20),
-//     child: ElevatedButton(
-//       onPressed: () async {
-//         if (addEventController.checkInputs()) {
-//           await addEventController.uploadImagesToFireStorage();
-//           addEventController.insertEventToFireStore();
-//           addEventController.clearInputs();
-//         }
-//       },
-//       child: const Text('Update Event'),
-//     ),
-//   );
-// }
-
+Future<void> showProgressDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.deepPurple[300],
+        content: const Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 20),
+            Text('Loading', style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      );
+    },
+  );
+}
 Widget drawerLocationTextField(TextEditingController textEditingController,
     AddEventController addEventController) {
   return Padding(

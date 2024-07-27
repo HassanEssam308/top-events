@@ -61,7 +61,7 @@ class CardsEventsWidget extends StatelessWidget {
                           child: eventModel.images!.isNotEmpty
                               ? Image.network(
                                   eventModel.images![0],
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   width: double.infinity,
                                   height: double.infinity,
                                 )

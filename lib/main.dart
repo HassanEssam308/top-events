@@ -38,11 +38,11 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
         GetPage(name: '/loginScreen', page: () => LoginScreen()),
-        GetPage(name: '/home', page: () => HomeScreen()),
-        GetPage(name: '/allEvents', page: () => AllEventsScreen()),
+        GetPage(name: '/home', page: () => const HomeScreen()),
+        GetPage(name: '/allEvents', page: () => AllEventsScreen(isAdmin: false,)),
         GetPage(name: '/addEvent', page: () => const AddEventScreen()),
         GetPage(name: '/profileScreen', page: () =>  ProfileScreen()),
-        GetPage(name: '/editeProfileScreen', page: () =>  Editeprofilescreen()),
+        GetPage(name: '/editeProfileScreen', page: () =>  EditeProfileScreen()),
 
       ],
     );

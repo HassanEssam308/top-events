@@ -10,7 +10,6 @@ import 'package:top_events/event_details/controllers/event_details_controller.da
 import 'package:top_events/tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
 
 import '../../service/functions_service.dart';
-import '../../tickets_Genrate_QrCode/tickets_Genrate_QrCode.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final String eventId;
@@ -138,7 +137,7 @@ class EventDetailsScreen extends StatelessWidget {
         }
 
         if (!snapshot.hasData || !snapshot.data!.exists) {
-          return Text('Document does not exist');
+          return const Text('Document does not exist');
         }
         var data = snapshot.data!;
         EventModel eventModel = EventModel.fromFireStoreBySnapshot(
@@ -150,25 +149,28 @@ class EventDetailsScreen extends StatelessWidget {
 
 
               /// Slider Images
-              CarouselSlider.builder(
-                options: CarouselOptions(
-                    height: 250.0,
-                  autoPlay: true,
-                  viewportFraction: 1,
-                  enlargeCenterPage: true,
-                    enlargeStrategy:CenterPageEnlargeStrategy.height,
-                  enableInfiniteScroll: false
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: CarouselSlider.builder(
+                  options: CarouselOptions(
+                      height: 250.0,
+                    autoPlay: true,
+                    viewportFraction: 1,
+                    enlargeCenterPage: true,
+                      enlargeStrategy:CenterPageEnlargeStrategy.height,
+                    enableInfiniteScroll: false
+                  ),
+                  itemCount: eventModel.images?.length ?? 0,
+                  itemBuilder: (BuildContext context, int index, int realIndex) {
+                    String urlImage= (eventModel.images!=null)? eventModel.images![index]:'';
+                    return urlImage!=''? drawerImageInSlider(urlImage,context):const Text('No Image');
+                  },
                 ),
-                itemCount: eventModel.images?.length ?? 0,
-                itemBuilder: (BuildContext context, int index, int realIndex) {
-                  String urlImage= (eventModel.images!=null)? eventModel.images![index]:'';
-                  return urlImage!=''? drawerImageInSlider(urlImage,context):const Text('No Image');
-                },
               ),
 
               ///title
               Padding(
-                padding: const EdgeInsetsDirectional.only(start: 2, top: 5),
+                padding: const EdgeInsetsDirectional.only(start: 2, top: 15),
                 child: Text(
                   eventModel.eventTitle ?? "",
                   textAlign: TextAlign.center,
@@ -266,12 +268,12 @@ class EventDetailsScreen extends StatelessWidget {
 
   Widget drawerImageInSlider(String urlImg , BuildContext context) {
     return Container(
-      margin: EdgeInsetsDirectional.symmetric(horizontal: 24),
+      margin: const EdgeInsetsDirectional.symmetric(horizontal: 24),
       color: Colors.grey,
 
       child: Image.network(
         urlImg,
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
         width: MediaQuery.of(context).size.width,
       ),
     );

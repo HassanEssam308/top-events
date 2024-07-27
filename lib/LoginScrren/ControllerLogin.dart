@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +28,9 @@ class Controllerlogin extends GetxController{
       );
     } else {
       try {
-        print(Email.text.toString()+"gggg");
+        if (kDebugMode) {
+          print(Email.text.toString()+"gggg");
+        }
          await _auth.signInWithEmailAndPassword(
           email: Email.text,
           password: pass.text,
@@ -41,23 +42,35 @@ class Controllerlogin extends GetxController{
           Get.snackbar('Login Error',e.code );
           switch (e.code) {
             case "invalid-email":
-              print("invalid-email");
+              if (kDebugMode) {
+                print("invalid-email");
+              }
               break;
             case "user-disabled":
-              print("user-disabled");
+              if (kDebugMode) {
+                print("user-disabled");
+              }
               break;
             case "user-not-found":
-              print("user-not-found");
+              if (kDebugMode) {
+                print("user-not-found");
+              }
               break;
             case "wrong-password":
-              print("wrong-password");
+              if (kDebugMode) {
+                print("wrong-password");
+              }
               break;
             default:
-              print("An unknown error occurred.");
+              if (kDebugMode) {
+                print("An unknown error occurred.");
+              }
               break;
           }
         } else {
-          print("An unknown error occurred.");
+          if (kDebugMode) {
+            print("An unknown error occurred.");
+          }
         }
       }
     }
@@ -91,11 +104,11 @@ class Controllerlogin extends GetxController{
 
       bool isAdmin=  documentSnapshot.data()?['isAdmin'];
       box.write('isAdmin',isAdmin);
-      if (kDebugMode) {
-        print('**saveIsAdminUseInGetStorage***Login***Document data: ${documentSnapshot.data()}');
-        print('**saveIsAdminUseInGetStorage**Login**isAdmin: ${isAdmin}');
-
-      }
+      // if (kDebugMode) {
+      //   print('**saveIsAdminUseInGetStorage***Login***Document data: ${documentSnapshot.data()}');
+      //   print('**saveIsAdminUseInGetStorage**Login**isAdmin: ${isAdmin}');
+      //
+      // }
 
 
     } else {
