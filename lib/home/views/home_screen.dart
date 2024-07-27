@@ -10,7 +10,7 @@ import '../../all_Tickets/tickets_storage.dart';
 import '../controllers/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
 
 
@@ -83,7 +83,7 @@ class HomeScreen extends StatelessWidget {
 
    Widget drawerScreens(HomeController homeController){
      final screens = [
-       AllEventsScreen(),
+       AllEventsScreen(isAdmin: homeController.isAdmin.value,),
        const MyPostedEventsScreen(),
        TicketsStorage(),
        if (homeController.isAdmin.value) TicketsScannQrcode(),

@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:top_events/add_event/controllers/add_event_controller.dart';
 import 'package:top_events/widgets/custom_dropdown_button_widget.dart';
 import 'add_event_widgets.dart';
@@ -12,11 +11,7 @@ class AddEventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProgressDialog progressDialog = ProgressDialog(context,type: ProgressDialogType.normal,isDismissible: false);
-    progressDialog.style(
-      message: 'loading',
-      backgroundColor: Colors.deepPurple[200]
-    );
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -50,7 +45,7 @@ class AddEventScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: CustomDropdownButtonWidget( addEventController: addEventController),
                         )
-                   : Text(''),
+                   : const Text(''),
 
                     ///Date picker
                     drawerDateTimePicker(addEventController.dateController , addEventController ),

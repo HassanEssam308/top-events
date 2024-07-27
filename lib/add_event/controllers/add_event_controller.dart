@@ -223,7 +223,7 @@ class AddEventController extends GetxController {
     update();
   }
 
-  void insertEventToFireStore() {
+  Future<void> insertEventToFireStore() async {
     List allLocation = locationController.text.split(',');
     String userId = box.read('uid');
     // print('*********userId=$userId');
@@ -246,7 +246,7 @@ class AddEventController extends GetxController {
 
     //add
     if (eventId == null) {
-      fireStoreInstance.collection('events').add(event).then((value) {
+    await  fireStoreInstance.collection('events').add(event).then((value) {
         Get.snackbar('published Successfully', '');
       }).catchError((error) {
         if (error is FirebaseException) {
@@ -263,7 +263,7 @@ class AddEventController extends GetxController {
       });
     } else {
       //update
-      fireStoreInstance
+    await  fireStoreInstance
           .collection('events')
           .doc(eventId)
           .update(event)
