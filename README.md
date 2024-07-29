@@ -50,5 +50,5 @@ Top Events is a Flutter application designed to streamline event creation and ti
   - Implements the credit card UI for payment processing.
     
 ## Demonstration Video
-https://drive.google.com/file/d/1KVVjGqpg27s9FyRnEYWTsojocZufIMjt/view?usp=sharing
+[Wacth the video](https://drive.google.com/file/d/1KVVjGqpg27s9FyRnEYWTsojocZufIMjt/view?usp=sharing)
 
