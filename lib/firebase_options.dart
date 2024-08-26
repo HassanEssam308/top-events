@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -46,30 +47,31 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAgLAcI3T2CYOdD-7Alqetgy3DRKWFOuMY',
-    appId: '1:145525055434:web:aa0f268464b0083ba37933',
-    messagingSenderId: '145525055434',
-    projectId: 'top-events-a004e',
-    authDomain: 'top-events-a004e.firebaseapp.com',
-    storageBucket: 'top-events-a004e.appspot.com',
-    measurementId: 'G-Q7LEVL6RDP',
+  static  FirebaseOptions web = FirebaseOptions(
+
+    apiKey: dotenv.env['WEB_API_KEY']!,
+    appId: dotenv.env['WEB_APP_ID']!,
+    messagingSenderId:dotenv.env['WEB_MESSAGING_SENDER_ID']!,
+    projectId:dotenv.env['WEB_PROJECT_ID']!,
+    authDomain: dotenv.env['WEB_AUTH_DOMAIN']!,
+    storageBucket: dotenv.env['WEB_STORAGE_BUCKET']!,
+    measurementId:dotenv.env['WEB_MEASUREMENT_ID']!,
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA3F1nIBjYWrDIHb4BvG87eZBwBKwYskok',
-    appId: '1:145525055434:android:3fbac9c4369fd171a37933',
-    messagingSenderId: '145525055434',
-    projectId: 'top-events-a004e',
-    storageBucket: 'top-events-a004e.appspot.com',
+  static  FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['ANDROID_API_KEY']!,
+    appId:dotenv.env['ANDROID_APP_ID']!,
+    messagingSenderId:dotenv.env['ANDROID_MESSAGING_SENDER_ID']!,
+    projectId:dotenv.env['ANDROID_PROJECT_ID']!,
+    storageBucket: dotenv.env['ANDROID_STORAGE_BUCKET']!,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCMRQWaUUlusneg1xqNuAFTEaaHR0OyO24',
-    appId: '1:145525055434:ios:1544004e4e188999a37933',
-    messagingSenderId: '145525055434',
-    projectId: 'top-events-a004e',
-    storageBucket: 'top-events-a004e.appspot.com',
-    iosBundleId: 'com.example.topEvents',
+  static  FirebaseOptions ios = FirebaseOptions(
+    apiKey:dotenv.env['IOS_API_KEY']!,
+    appId:dotenv.env['IOS_APP_ID']!,
+    messagingSenderId:dotenv.env['IOS_MESSAGING_SENDER_ID']!,
+    projectId:dotenv.env['IOS_PROJECT_ID']!,
+    storageBucket:dotenv.env['IOS_STORAGE_BUCKET']!,
+    iosBundleId:dotenv.env['IOS_IOS_BUNDLE_ID']!,
   );
 }
