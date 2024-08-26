@@ -276,7 +276,7 @@ Widget drawerLocationTextField(TextEditingController textEditingController,
         labelText: 'location',
         suffixIcon: IconButton(
             color: Colors.grey[300],
-            onPressed: () => Get.to(LocationScreen(
+            onPressed: () => Get.to(()=>LocationScreen(
                   addEventController: addEventController,
                 )),
             icon: addEventController.iconOfLocation()),

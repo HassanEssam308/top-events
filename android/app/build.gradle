@@ -54,14 +54,14 @@ android {
         versionName = flutterVersionName
     }
 
-           signingConfigs {
-                   release {
-                       keyAlias keystoreProperties['keyAlias']
-                       keyPassword keystoreProperties['keyPassword']
-                       storePassword keystoreProperties['storePassword']
-                       storeFile file(keystoreProperties['storeFile'])
-                   }
-               }
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storePassword keystoreProperties['storePassword']
+            storeFile file(keystoreProperties['storeFile'])
+        }
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -70,10 +70,10 @@ android {
         }
     }
     android {
-           defaultConfig {
-                minSdkVersion 23
-               }
-         }
+        defaultConfig {
+            minSdkVersion 23
+        }
+    }
 }
 
 flutter {

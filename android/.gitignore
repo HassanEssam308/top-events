@@ -11,3 +11,6 @@ GeneratedPluginRegistrant.java
 keyyy.properties
 **/*.keystore
 **/*.jks
+
+android/app/google-services.json
+*/google-services.json
